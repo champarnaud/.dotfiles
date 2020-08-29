@@ -49,3 +49,6 @@ set smartcase
 
 " Move cursor to the matched string
 set incsearch
+
+" Indentation
+filetype indent on
