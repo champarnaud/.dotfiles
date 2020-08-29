@@ -13,5 +13,5 @@ Librement inspiré du projet https://github.com/Chewie/dotfiles
   ./install.sh        # Exécuter l'installation
   ```
 
-- Le fichier install va créer les liens symboliques dans le répertoire `Home` de l'utilisateur
+- Le fichier `install.sh` va créer les liens symboliques dans le répertoire `Home` de l'utilisateur
   vers le répertoire `.dotfiles`
