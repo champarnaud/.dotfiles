@@ -1,4 +1,4 @@
-# dotfiles
+# .dotfiles
 
 Projet de rassemblement des fichiers de configurations
 
