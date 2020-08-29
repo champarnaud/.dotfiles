@@ -6,10 +6,12 @@ Librement inspiré du projet https://github.com/Chewie/dotfiles
 
 ## Installation
 - cloner le projet dans le répertoire de l'utilisateur 
-- ce déplasser dans le dossier du projet : 
+- Puis : 
   ``` 
-  cd ~/.dotfiles
-  chmod +x insall.sh
-  ./install.sh
+  cd ~/.dotfiles      # Se déplacer dans le dossier
+  chmod +x insall.sh  # Rendre le fichier install executable
+  ./install.sh        # Exécuter l'installation
   ```
 
+- Le fichier install va créer les liens symboliques dans le répertoire `Home` de l'utilisateur
+  vers le répertoire `.dotfiles`
