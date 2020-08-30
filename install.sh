@@ -16,13 +16,50 @@ else
 }
 
 #--- LISTE DES FICHIERS ET REPERTOIRES DE CONFIGURATION
-liste_des_config=("vim" "vimrc" "tux.conf")
+tab=("vim" "vimrc" "tmux.conf")
 
-#--- EXECUTION DE LA CREATION DES LIENS SYMBOLIQUES
-for prog in ${liste_des_config[@]}
+#--- main
+boucle=0
+
+# menu
+while [ $boucle=0 ]
 do
-	echo "Création de : ."$prog
-	creation_de_liens_symboliques $prog
+	echo "Liste des fichiers de configuration à installer :"
+	for i in ${!tab[*]}
+	do
+		echo "$i - ${tab[$i]}" 
+	done
+	echo "* - Tous"
+	echo "q - Sortie"
+	read -p "Faites votre choix : " rep
+
+# traitment de la réponse
+if [[ $rep = "q" ]] 				# Sortie
+then
+	echo "Au revoir"
+	exit 0
+elif [[ $rep = "*" ]] 				# Tous
+then
+	echo "Patientez ..."
+	for conf in ${tab[@]}
+	do
+		echo "Installation de ===> "$conf
+		creation_de_liens_symboliques $conf
+	done
+	echo "C'est fait ..."
+	echo "Au revoir"
+	exit 0
+elif [[ $rep =~ [0-9] ]] 			# Picking
+then
+	prog=${tab[$rep]}
+	echo "Installation de ===> "$prog
+	creation_de_liens_symboliques $conf
+	echo "Fait !"
+else 						# Erreur
+	echo "Pardon je n'ai pas compris ..."
+fi
 done
 
-
+exit 0
+#--- EXECUTION DE LA CREATION DES LIENS SYMBOLIQUES
+exit 0
