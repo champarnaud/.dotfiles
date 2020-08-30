@@ -59,8 +59,8 @@ else 						# Erreur
 	clear
 	echo "Pardon je n'ai pas compris ..."
 fi
+
 done
 
-exit 0
-#--- EXECUTION DE LA CREATION DES LIENS SYMBOLIQUES
+#--- FIN
 exit 0
