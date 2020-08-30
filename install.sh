@@ -40,6 +40,7 @@ then
 	exit 0
 elif [[ $rep = "*" ]] 				# Tous
 then
+	clear
 	echo "Patientez ..."
 	for conf in ${tab[@]}
 	do
@@ -51,11 +52,13 @@ then
 	exit 0
 elif [[ $rep =~ [0-9] ]] 			# Picking
 then
+	clear
 	prog=${tab[$rep]}
 	echo "Installation de ===> "$prog
 	creation_de_liens_symboliques $conf
 	echo "Fait !"
 else 						# Erreur
+	clear
 	echo "Pardon je n'ai pas compris ..."
 fi
 done
