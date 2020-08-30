@@ -9,7 +9,7 @@ Librement inspiré du projet https://github.com/Chewie/dotfiles
 - Puis : 
   ``` 
   cd ~/.dotfiles      # Se déplacer dans le dossier
-  chmod +x insall.sh  # Rendre le fichier install executable
+  chmod +x install.sh  # Rendre le fichier install executable
   ./install.sh        # Exécuter l'installation
   ```
 
