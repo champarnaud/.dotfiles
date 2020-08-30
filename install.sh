@@ -16,7 +16,7 @@ else
 }
 
 #--- LISTE DES FICHIERS ET REPERTOIRES DE CONFIGURATION
-tab=("vim" "vimrc" "tmux.conf")
+tab=("vim" "vimrc" "tmux.conf" "zshrc" "oh-my-zsh" "p10k.zsh")
 
 #--- main
 boucle=0
