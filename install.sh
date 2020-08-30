@@ -22,6 +22,7 @@ tab=("vim" "vimrc" "tmux.conf")
 boucle=0
 while [ $boucle=0 ]
 do						# menu
+	clear
 	echo "Liste des fichiers de configuration à installer :"
 	for i in ${!tab[*]}
 	do
