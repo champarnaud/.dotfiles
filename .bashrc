@@ -56,10 +56,16 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@[\h][connect]\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+# Recuperation du nom de la machine $MACHINE
+if [ "$MACHINE" = '' ]
+	echo "Ajoutez la variable 'MACHINE=nom_de_la_machine' dans ~/.profile"
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@[\h][connect]:\w\$ '
+	machine = $MACHINE
+fi
+if [ "$color_prompt" = yes ]; then
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@[\h][$machine]\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+else
+    PS1='${debian_chroot:+($debian_chroot)}\u@[\h][$machine]:\w\$ '
 fi
 unset color_prompt force_color_prompt
 
