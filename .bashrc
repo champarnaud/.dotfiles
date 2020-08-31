@@ -59,7 +59,7 @@ fi
 # Recuperation du nom de la machine $MACHINE
 machine=$(cat ~/.machine) 
 if [ "$machine" = '' ]; then
-	echo "Ajoutez la variable 'MACHINE=nom_de_la_machine' dans ~/.profile"
+	echo "Ajoutez le nom de la machine dans le fichier ~/.dotfile/.machine"
 fi
 
 # color prompt
