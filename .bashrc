@@ -57,7 +57,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 # Recuperation du nom de la machine $MACHINE
-if [ "$MACHINE" = '' ]
+if [ "$MACHINE" = '' ]; then
 	echo "Ajoutez la variable 'MACHINE=nom_de_la_machine' dans ~/.profile"
 else
 	machine = $MACHINE
