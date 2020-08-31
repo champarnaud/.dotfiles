@@ -16,7 +16,7 @@ else
 }
 
 #--- LISTE DES FICHIERS ET REPERTOIRES DE CONFIGURATION
-tab=("vim" "vimrc" "tmux.conf" "zshrc" "oh-my-zsh" "p10k.zsh")
+tab=("vim" "vimrc" "tmux.conf" "bashrc")
 
 #--- main
 boucle=0
@@ -52,6 +52,7 @@ then
 elif [[ $rep =~ [0-9] ]] 			# Picking
 then
 	clear
+	echo "ici"$msg
 	prog=${tab[$rep]}
 	echo "Installation de ===> "$prog
 	creation_de_liens_symboliques $conf
