@@ -60,7 +60,7 @@ fi
 if [ "$MACHINE" = '' ]; then
 	echo "Ajoutez la variable 'MACHINE=nom_de_la_machine' dans ~/.profile"
 else
-	machine = $MACHINE
+	machine=$MACHINE
 fi
 if [ "$color_prompt" = yes ]; then
     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@[\h][$machine]\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
