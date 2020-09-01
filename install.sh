@@ -2,19 +2,44 @@
 
 export LC_ALL=C
 
-#--- FONCTIONS
-creation_de_liens_symboliques() {
-  motif='File exists'
-  msg=$(ln -s ~/.dotfiles/."$1" ~/."$1" 2>&1) || if [[ $msg =~ $motif ]]; then
-    # Le fichier est déja présent
-    echo "Renommez ou supprimez l'ancien fichier : $1" >&2
-  else
-    echo "Essai de création de $1, mais : " $msg
-  fi
-}
-
 #--- LISTE DES FICHIERS ET REPERTOIRES DE CONFIGURATION
 tab=("vim" "vimrc" "tmux.conf" "bashrc" "machine")
+
+#--- FONCTIONS
+function creation_de_liens_symboliques() {
+  app=${tab[$1]}
+  ix_app=$1
+  # echo "Installation de ===> "$app" d'index : "$1
+  #  exit 0
+  # nom de la machine
+  machine=$(cat .machine) || if [[ $machine =~ ^$ ]]; then
+    read -p "Donnez un nom à votre machine : " machine
+  fi
+
+  # test de présence du fichier
+  motif='File exists'
+  msg=$(ln -s ~/.dotfiles/."$app" ~/."$app" 2>&1)
+  if [[ $msg =~ $motif ]]; then
+    read -p "Voulez-vous supprimer le lien précédent ? (o/n)" suppr
+    if [[ $suppr =~ ^[oO]$ ]]; then
+      #suppression de l'ancien fichier
+      echo "Echo essai de suppression de : ."$app
+      msg=$(rm ~/."$app" 2>&1)
+        if [[ $msg = '' ]]; then
+          echo "Installation de ===> "$app
+          creation_de_liens_symboliques $1
+        else
+          echo "Impossible de le supprimer : ."$app
+          echo "Vérifiez que vous avez les droits"
+        fi
+    else
+      echo "Vous devez supprimer le fichier ."$app
+    fi
+  else
+    echo "Installation de ===> "$app
+  fi
+
+}
 
 #--- main
 boucle=0
@@ -34,8 +59,7 @@ while [ $boucle=0 ]; do # menu
   elif [[ $rep == "*" ]]; then # Tous
     clear
     echo "Patientez ..."
-    for conf in ${tab[@]}; do
-      echo "Installation de ===> "$conf
+    for conf in ${!tab[@]}; do
       creation_de_liens_symboliques $conf
     done
     echo "C'est fait ..."
@@ -44,8 +68,8 @@ while [ $boucle=0 ]; do # menu
   elif [[ $rep =~ ^[0-9]?$ ]]; then # Picking
     clear
     prog=${tab[$rep]}
-    echo "Installation de ===> "$prog
-    creation_de_liens_symboliques $conf
+
+    creation_de_liens_symboliques $rep
     echo "Fait !"
   else # Erreur
     clear
