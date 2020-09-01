@@ -7,31 +7,27 @@ tab=("vim" "vimrc" "tmux.conf" "bashrc" "machine")
 
 #--- FONCTIONS
 function creation_de_liens_symboliques() {
-  app=${tab[$1]}
-  ix_app=$1
-  # echo "Installation de ===> "$app" d'index : "$1
-  #  exit 0
-  # nom de la machine
-  machine=$(cat .machine) || if [[ $machine =~ ^$ ]]; then
-    read -p "Donnez un nom à votre machine : " machine
-  fi
+
+  app=${tab[$1]} # nom de l'application
+  ix_app=$1      # index de l'application
 
   # test de présence du fichier
   motif='File exists'
   msg=$(ln -s ~/.dotfiles/."$app" ~/."$app" 2>&1)
   if [[ $msg =~ $motif ]]; then
-    read -p "Voulez-vous supprimer le lien précédent ? (o/n)" suppr
+    read -p "Voulez-vous supprimer le lien précédent ? [O/n] " suppr
     if [[ $suppr =~ ^[oO]$ ]]; then
       #suppression de l'ancien fichier
-      echo "Echo essai de suppression de : ."$app
+      echo "Essai de suppression de : ."$app
       msg=$(rm ~/."$app" 2>&1)
-        if [[ $msg = '' ]]; then
-          echo "Installation de ===> "$app
-          creation_de_liens_symboliques $1
-        else
-          echo "Impossible de le supprimer : ."$app
-          echo "Vérifiez que vous avez les droits"
-        fi
+      if [[ $msg == '' ]]; then
+        echo "Suppression de ===> "$app
+        creation_de_liens_symboliques $1
+        exit 0
+      else
+        echo "Impossible de supprimer : ."$app
+        echo "Vérifiez que vous avez les droits"
+      fi
     else
       echo "Vous devez supprimer le fichier ."$app
     fi
@@ -39,6 +35,12 @@ function creation_de_liens_symboliques() {
     echo "Installation de ===> "$app
   fi
 
+  # si installation de la machine
+  machine=$(wc -c .machine)
+  if [[ $machine =~ ^0? && $1 = 4 ]]; then
+    read -p "Donnez un nom à votre machine 1: " machine
+    echo "$machine" > .machine
+  fi
 }
 
 #--- main
@@ -68,7 +70,6 @@ while [ $boucle=0 ]; do # menu
   elif [[ $rep =~ ^[0-9]?$ ]]; then # Picking
     clear
     prog=${tab[$rep]}
-
     creation_de_liens_symboliques $rep
     echo "Fait !"
   else # Erreur
