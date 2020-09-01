@@ -3,7 +3,7 @@
 export LC_ALL=C
 
 #--- LISTE DES FICHIERS ET REPERTOIRES DE CONFIGURATION
-tab=("vim" "vimrc" "tmux.conf" "bashrc" "machine")
+tab=($(ls conf/))
 
 #--- FONCTIONS
 function creation_de_liens_symboliques() {
@@ -15,13 +15,13 @@ function creation_de_liens_symboliques() {
   motif='File exists'
   msg=$(ln -s ~/.dotfiles/conf/"$app" ~/."$app" 2>&1)
   if [[ $msg =~ $motif ]]; then
-    read -p "Voulez-vous supprimer le lien précédent ? [O/n] " suppr
+    read -p "Voulez-vous supprimer le lien '$app' précédent ? [O/n] " suppr
     if [[ $suppr =~ ^[oO]$ ]]; then
       #suppression de l'ancien fichier
       echo "Essai de suppression de : ."$app
       msg=$(rm ~/."$app" 2>&1)
       if [[ $msg == '' ]]; then
-        echo "Suppression de ===> "$app
+        echo "Suppression de ===> ."$app
         creation_de_liens_symboliques $1
       else
         echo "Impossible de supprimer : ."$app
@@ -31,12 +31,12 @@ function creation_de_liens_symboliques() {
       echo "Vous devez supprimer le fichier ."$app
     fi
   else
-    echo "Installation de ===> "$app
+    echo "Installation de ===> ."$app
   fi
 
   # si installation de la machine
   machine=$(wc -c .machine)
-  if [[ $machine =~ ^0? && $1 = 4 ]]; then
+  if [[ $machine =~ ^0? && $app = "machine" ]]; then
     read -p "Donnez un nom à votre machine : " machine
     echo "$machine" > "conf/machine"
   fi
