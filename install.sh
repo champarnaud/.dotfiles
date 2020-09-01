@@ -13,7 +13,7 @@ function creation_de_liens_symboliques() {
 
   # test de présence du fichier
   motif='File exists'
-  msg=$(ln -s ~/.dotfiles/."$app" ~/."$app" 2>&1)
+  msg=$(ln -s ~/.dotfiles/conf/"$app" ~/."$app" 2>&1)
   if [[ $msg =~ $motif ]]; then
     read -p "Voulez-vous supprimer le lien précédent ? [O/n] " suppr
     if [[ $suppr =~ ^[oO]$ ]]; then
@@ -23,7 +23,6 @@ function creation_de_liens_symboliques() {
       if [[ $msg == '' ]]; then
         echo "Suppression de ===> "$app
         creation_de_liens_symboliques $1
-        exit 0
       else
         echo "Impossible de supprimer : ."$app
         echo "Vérifiez que vous avez les droits"
@@ -38,8 +37,8 @@ function creation_de_liens_symboliques() {
   # si installation de la machine
   machine=$(wc -c .machine)
   if [[ $machine =~ ^0? && $1 = 4 ]]; then
-    read -p "Donnez un nom à votre machine 1: " machine
-    echo "$machine" > .machine
+    read -p "Donnez un nom à votre machine : " machine
+    echo "$machine" > "conf/machine"
   fi
 }
 
@@ -61,7 +60,7 @@ while [ $boucle=0 ]; do # menu
   elif [[ $rep == "*" ]]; then # Tous
     clear
     echo "Patientez ..."
-    for conf in ${!tab[@]}; do
+    for conf in ${!tab[*]}; do
       creation_de_liens_symboliques $conf
     done
     echo "C'est fait ..."
@@ -76,7 +75,6 @@ while [ $boucle=0 ]; do # menu
     clear
     echo "Pardon je n'ai pas compris ..."
   fi
-
 done
 
 #--- FIN
