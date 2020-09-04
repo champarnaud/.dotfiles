@@ -36,7 +36,7 @@ function creation_de_liens_symboliques() {
     machine=$(wc -c conf/machine)
     if [[ $machine =~ ^0? && $app == "machine" ]]; then
       read -p "Donnez un nom à votre machine : " machine
-      echo "$machine" >"conf/machine"
+      echo "$machine" > "conf/machine"
     fi
 
   fi
