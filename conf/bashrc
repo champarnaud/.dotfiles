@@ -126,5 +126,6 @@ fi
 
 
 export LC_ALL=C
+
 # Alias git commit -am
 alias gco="git commit -am"
