@@ -38,14 +38,12 @@ function creation_de_liens_symboliques() {
       read -p "Donnez un nom à votre machine : " machine
       echo "$machine" > "conf/machine"
     fi
-
   fi
-
 }
 
 #--- main
 boucle=0
-while [ $boucle=0 ]; do # menu
+while [ $boucle = 0 ]; do # menu
   echo "Liste des fichiers de configuration à installer :"
   for i in ${!tab[*]}; do
     echo "$i - ${tab[$i]}"
@@ -69,7 +67,7 @@ while [ $boucle=0 ]; do # menu
     exit 0
   elif [[ $rep =~ ^[0-9]?$ ]]; then # Picking
     clear
-    prog=${tab[$rep]}
+    # prog=${tab[$rep]}
     creation_de_liens_symboliques $rep
     echo "Fait !"
   else # Erreur
