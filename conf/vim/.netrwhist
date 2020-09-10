@@ -1,3 +1,12 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =1
-let g:netrw_dirhist_1='/Users/jcc/Library/Containers/com.docker.docker/Data/vms/0/data'
+let g:netrw_dirhistcnt =3
+let g:netrw_dirhist_3='/Users/jcc/Downloads'
+let g:netrw_dirhist_2='/Users/jcc'
+let g:netrw_dirhist_1='/Users/jcc/Downloads'
+let g:netrw_dirhist_0='/Users/jcc'
+let g:netrw_dirhist_9='/Users/jcc/Downloads'
+let g:netrw_dirhist_8='/Users/jcc'
+let g:netrw_dirhist_7='/Users/jcc/Downloads'
+let g:netrw_dirhist_6='/Users/jcc'
+let g:netrw_dirhist_5='/Users/jcc/Downloads'
+let g:netrw_dirhist_4='/Users/jcc'

@@ -1,5 +1,6 @@
 " Active la numérotation des lignes
 set number
+set relativenumber
 
 " Active la coloration syntaxique
 syntax on
