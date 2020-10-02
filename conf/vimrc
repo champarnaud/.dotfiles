@@ -1,6 +1,9 @@
 " Retirer la compatibilité avec VI
 set nocompatible
 
+" Barre espace > Page down
+nmap <Space> <PageDown>
+
 " Active la numérotation des lignes
 set number
 
@@ -43,9 +46,11 @@ set completeopt=longest,menuone
 " Highlight current line
 set cursorline
 
-""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+"------------------------------------------------
 " Search options
-""""""""""""""""""""""""""""""""""""""""""""""""""
+"------------------------------------------------
 
 " Ignore case on search
 set ignorecase
@@ -58,3 +63,12 @@ set incsearch
 
 " Indentation
 filetype indent on
+
+
+
+"------------------------------------------------
+" Raccourci perso
+"------------------------------------------------
+
+" Indentation automatique < ;i >
+nmap <silent> ;i gg=G
