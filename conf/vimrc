@@ -1,5 +1,10 @@
+" Retirer la compatibilité avec VI
+set nocompatible
+
 " Active la numérotation des lignes
 set number
+
+" Active les numéros de lignes relatif par rapport à la positoin actuel
 set relativenumber
 
 " Active la coloration syntaxique
