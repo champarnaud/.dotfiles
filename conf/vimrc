@@ -51,14 +51,9 @@ set encoding=utf-8
 
 " Try to set right locale
 try
-    lang fr_FR
+	lang fr_FR
 catch
 endtry
-
-" Split screen horiz and vert, prompt for file, and open
-" ala gosmacs visit-file or GNU find-file-other-window
-map <C-X><C-V> :vsplit 
-map <C-X><C-H> :sp 
 
 "------------------------------------------------
 " Search options
@@ -77,10 +72,16 @@ set incsearch
 filetype indent on
 
 
-
 "------------------------------------------------
 " Raccourci perso
 "------------------------------------------------
 
 " Indentation automatique < ;i >
 nmap <silent> ;i gg=G
+
+" Split screen horiz and vert, prompt for file, and open
+" ala gosmacs visit-file or GNU find-file-other-window
+map <C-X><C-V> :vsplit 
+map <C-X><C-H> :sp 
+
+
