@@ -15,3 +15,12 @@ Librement inspiré du projet https://github.com/Chewie/dotfiles
 
 - Le fichier `install.sh` va créer les liens symboliques dans le répertoire `Home` de l'utilisateur
   vers le répertoire `.dotfiles`
+
+
+## Applications
+### raccourci Vim
+
+- CTRL-x + CTRL-v : split vertical avec saisie du fichier à ouvrir
+- CTRL-x + CTRL-h : split horizontal avec saisie du fichier à ouvrir
+
+- ;i : reformatage de l'indentation
