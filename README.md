@@ -19,8 +19,8 @@ Librement inspiré du projet https://github.com/Chewie/dotfiles
 
 ## Applications
 ### raccourci Vim
-
-- CTRL-x + CTRL-v : split vertical avec saisie du fichier à ouvrir
-- CTRL-x + CTRL-h : split horizontal avec saisie du fichier à ouvrir
-
-- ;i : reformatage de l'indentation
+```
+- CTRL-x + CTRL-v 	# split vertical avec saisie du fichier à ouvrir
+- CTRL-x + CTRL-h 	# split horizontal avec saisie du fichier à ouvrir
+- ;i  			# reformatage de l'indentation
+```
