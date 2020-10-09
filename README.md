@@ -27,4 +27,4 @@ vers le répertoire `.dotfiles`
 ```
 
 ### Bash
-- Ajout du mode VI à la saisie sur la oigne de commande
+- Ajout du mode VI à la saisie sur la ligne de commande
