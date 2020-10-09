@@ -25,3 +25,6 @@ vers le répertoire `.dotfiles`
 - CTRL-x + CTRL-h 	# split horizontal avec saisie du fichier à ouvrir
 - ;i  			# reformatage de l'indentation
 ```
+
+### Bash
+- Ajout du mode VI à la saisie sur la oigne de commande

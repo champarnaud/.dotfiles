@@ -25,7 +25,7 @@ function creation_de_liens_symboliques() {
 		  #suppression de l'ancien fichier
 		  echo "Essai de suppression de : ."$app
 		  msg=$(rm ~/."$app" 2>&1)
-		  if [[ $msg == '' ]]; then
+		  if [[ -z $msg ]]; then
 			  echo "Suppression de ===> ."$app
 			  creation_de_liens_symboliques $1
 		  else
