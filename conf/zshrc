@@ -132,6 +132,8 @@ alias sweball="ssh_tmux weball.mesdepanneurs.fr"
 alias sconnect="ssh_tmux connect.mesdepanneurs.fr"
 alias srecette="ssh_tmux recette.mesdepanneurs.local"
 alias sutils="ssh_tmux utils.mesdepanneurs.local"
+alias sraspberry_wifi="ssh_tmux raspberry_wifi"
+
 
 # allow vi mode
 bindkey -v

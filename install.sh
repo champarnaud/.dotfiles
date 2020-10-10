@@ -16,13 +16,14 @@ function creation_de_liens_symboliques() {
 	app=${tab[$1]} # nom de l'application
 	ix_app=$1      # index de l'application
 
-  # remplacement du fichier/lien si il existe
+  # création du lien symbolique vesr le fichier dans le rep 'conf/'
   motif='File exists'
   msg=$(ln -s ~/.dotfiles/conf/"$app" ~/."$app" 2>&1)
+
+  # Si l'ancien fichier existe on le supprime
   if [[ $msg =~ $motif ]]; then
 	  read -p "Voulez-vous supprimer le lien '$app' précédent ? [O/n] " suppr
 	  if [[ $suppr =~ ^[oO]$ ]]; then
-		  #suppression de l'ancien fichier
 		  echo "Essai de suppression de : ."$app
 		  msg=$(rm ~/."$app" 2>&1)
 		  if [[ -z $msg ]]; then
