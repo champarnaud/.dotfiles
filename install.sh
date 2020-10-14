@@ -6,7 +6,7 @@ export LC_ALL=C
 [ ! -s "conf/machine" ] || echo "" > "conf/machine"
 
 #--- LISTE DES FICHIERS ET REPERTOIRES DE CONFIGURATION
-tab=($(ls conf/))
+tab=($(ls conf/ && ls scripts/))
 
 #--- FONCTIONS
 function creation_de_liens_symboliques() {
@@ -24,7 +24,7 @@ function creation_de_liens_symboliques() {
 	  if [[ $suppr =~ [oOyY] ]]; then
 		  echo "Essai de suppression de : ."$app
 		  msg=$(rm ~/."$app" 2>&1)
-		  if [ ! -z $msg ]; then
+		  if [ -z $msg ]; then
 			  echo "Suppression de ===> ."$app
 			  creation_de_liens_symboliques $1
 		  else
@@ -44,6 +44,10 @@ function creation_de_liens_symboliques() {
   fi
 }
 
+function execution_de_script(){
+	echo "execusion de script"
+}
+
 #--- main
 boucle=0
 while [ $boucle = 0 ]; do # menu
@@ -56,10 +60,10 @@ while [ $boucle = 0 ]; do # menu
 	read -p "Faites votre choix : " rep
 
   # traitment de la réponse
-  if [[ $rep == "q" ]]; then # Sortie
+  if [ $rep == "q" ]; then # Sortie
 	  echo "Au revoir"
 	  exit 0
-  elif [[ $rep == "*" ]]; then # Tous
+  elif [ $rep == "*" ]; then # Tous
 	  clear
 	  echo "Patientez ..."
 	  for conf in ${!tab[*]}; do
@@ -70,12 +74,12 @@ while [ $boucle = 0 ]; do # menu
 	  exit 0
   elif [[ $rep =~ ^[0-9]?$ ]]; then # Picking
 	  clear
-	  # prog=${tab[$rep]}
-	  creation_de_liens_symboliques $rep
+	  [[ ${tab[$rep]} =~ \.sh$ ]] && execution_de_script $rep \
+	  || creation_de_liens_symboliques $rep
 	  echo "Fait !"
   else # Erreur
 	  clear
-	  echo "Pardon je n'ai pas compris ..."
+	  echo "Pardon, je n'ai pas compris ..."
   fi
 done
 
