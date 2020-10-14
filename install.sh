@@ -2,8 +2,10 @@
 
 export LC_ALL=C
 
-# création du fichier machine si inexistant
-[ ! -s "conf/machine" ] || echo "" > "conf/machine"
+#--- ENVIRONNEMENT
+repconf="conf"
+repscripts="scripts"
+[ ! -s "$repconf/machine" ] || echo "" > "$repconf/machine"
 
 #--- LISTE DES FICHIERS ET REPERTOIRES DE CONFIGURATION
 tab=($(ls conf/ && ls scripts/))
@@ -15,7 +17,7 @@ function creation_de_liens_symboliques() {
 	ix_app=$1      # index de l'application
 
   # création du lien symbolique vers le fichier dans le rep 'conf/'
-  msg=$(ln -s ~/.dotfiles/conf/"$app" ~/."$app" 2>&1)
+  msg=$(ln -s ~/.dotfiles/$repconf/"$app" ~/."$app" 2>&1)
 
   # Si l'ancien fichier ou lien symbolique existe on le supprime
   # pour le remplacer
@@ -37,16 +39,17 @@ function creation_de_liens_symboliques() {
   else
 	  echo "Installation de ===> ."$app
 	  # si installation de la machine
-	  if [[ ! -s "conf/machine" || "$app" == "machine" ]]; then
+	  if [[ ! -s "$repconf/machine" || "$app" == "machine" ]]; then
 		  read -p "Donnez un nom à votre machine : " machine
-		  echo "$machine" > "conf/machine"
+		  echo "$machine" > "$repconf/machine"
 	  fi
   fi
 }
 
 function execution_de_script(){
 	echo "execusion de script app=${tab[$1]} " 
-	sh ""
+	sh "$repscripts/${tab[$1]}"
+
 }
 
 #--- main
