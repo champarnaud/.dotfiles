@@ -20,8 +20,7 @@ vers le répertoire `.dotfiles`
 Ce sont des scripts de personalisations de l'environnement pour la plus part.
 Vous pouvez les appliquer depuis la ligne de commandes ou les piloter depuis le script principale `install.sh` 
 
-* `foldertmp.sh` créé un répertoire pour l'utilisateur courant dans le rep '/tmp'
-et un lien symbolique dans le '/home' de l'utlisateur courant vers ce
+* `foldertmp.sh` créé un répertoire pour l'utilisateur courant dans le rep '/tmp' et un lien symbolique dans le '/home' de l'utlisateur courant vers ce
 répertoire
 
 ## Applications
