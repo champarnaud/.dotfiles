@@ -45,7 +45,8 @@ function creation_de_liens_symboliques() {
 }
 
 function execution_de_script(){
-	echo "execusion de script"
+	echo "execusion de script app=${tab[$1]} " 
+	sh ""
 }
 
 #--- main
