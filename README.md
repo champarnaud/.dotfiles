@@ -33,4 +33,7 @@ répertoire
 ```
 
 ### Bash
-- Ajout du mode VI à la saisie sur la ligne de commande
+- Ajout du mode 'VI' à la saisie sur la ligne de commande
+
+### Zsh
+- Ajout du mode 'VI' à la saisie sur la ligne de commande
