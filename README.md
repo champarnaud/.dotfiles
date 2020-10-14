@@ -16,9 +16,13 @@ chmod +x install.sh   # Rendre le fichier install executable
 - Le fichier `install.sh` va créer les liens symboliques dans le répertoire `Home` de l'utilisateur
 vers le répertoire `.dotfiles`
 
-## Scripts
-- Vous pouvez installer depuis la ligne de commandes les scripts ```sh``` ou
-  les piloter depuis le script principale ``install.sh```
+## Scripts (`*.sh`)
+- Vous pouvez appliquer depuis la ligne de commandes ou piloter depuis le
+  script principale `install.sh` les scripts de configuration
+
+** `foldertmp.sh` créé un répertoire pour l'utilisateur courant dans le rep '/tmp'
+et un lien symbolique dans le '/home' de l'utlisateur courant vers ce
+répertoire
 
 ## Applications
 ### raccourci Vim
