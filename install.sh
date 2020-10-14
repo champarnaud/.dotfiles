@@ -1,11 +1,9 @@
-#! /bin/bash
+#! /bin/sh
 
 export LC_ALL=C
 
 # création du fichier machine si inexistant
-if [[ ! -s "conf/machine" ]]; then
-	echo "" > "conf/machine"
-fi
+[ ! -s "conf/machine" ] || echo "" > "conf/machine"
 
 #--- LISTE DES FICHIERS ET REPERTOIRES DE CONFIGURATION
 tab=($(ls conf/))
@@ -16,17 +14,17 @@ function creation_de_liens_symboliques() {
 	app=${tab[$1]} # nom de l'application
 	ix_app=$1      # index de l'application
 
-  # création du lien symbolique vesr le fichier dans le rep 'conf/'
-  motif='File exists'
+  # création du lien symbolique vers le fichier dans le rep 'conf/'
   msg=$(ln -s ~/.dotfiles/conf/"$app" ~/."$app" 2>&1)
 
-  # Si l'ancien fichier existe on le supprime
-  if [[ $msg =~ $motif ]]; then
+  # Si l'ancien fichier ou lien symbolique existe on le supprime
+  # pour le remplacer
+  if [ ! -z "$msg" ]; then
 	  read -p "Voulez-vous supprimer le lien '$app' précédent ? [O/n] " suppr
-	  if [[ $suppr =~ ^[oO]$ ]]; then
+	  if [[ $suppr =~ [oOyY] ]]; then
 		  echo "Essai de suppression de : ."$app
 		  msg=$(rm ~/."$app" 2>&1)
-		  if [[ -z $msg ]]; then
+		  if [ ! -z $msg ]; then
 			  echo "Suppression de ===> ."$app
 			  creation_de_liens_symboliques $1
 		  else
