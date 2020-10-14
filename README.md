@@ -17,10 +17,10 @@ chmod +x install.sh   # Rendre le fichier install executable
 vers le répertoire `.dotfiles`
 
 ## Scripts (`*.sh`)
-- Vous pouvez appliquer depuis la ligne de commandes ou piloter depuis le
+Vous pouvez appliquer depuis la ligne de commandes ou piloter depuis le
   script principale `install.sh` les scripts de configuration
 
-** `foldertmp.sh` créé un répertoire pour l'utilisateur courant dans le rep '/tmp'
+* `foldertmp.sh` créé un répertoire pour l'utilisateur courant dans le rep '/tmp'
 et un lien symbolique dans le '/home' de l'utlisateur courant vers ce
 répertoire
 
