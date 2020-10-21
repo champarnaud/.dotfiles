@@ -55,6 +55,16 @@ try
 catch
 endtry
 
+" Indentation automatique
+set autoindent
+
+" Indentation intelligente
+set smartindent
+
+" Tabulation = 4 espaces
+set tabstop=4
+set shiftwidth=4
+	
 "------------------------------------------------
 " Search options
 "------------------------------------------------
@@ -76,7 +86,7 @@ filetype indent on
 " Raccourci perso
 "------------------------------------------------
 
-" Indentation automatique < ;i >
+" Correction d'indentation automatique < ;i >
 nmap <silent> ;i gg=G
 
 " Split screen horiz and vert, prompt for file, and open
