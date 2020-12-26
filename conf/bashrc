@@ -63,7 +63,7 @@ fi
 machine=$(cat ~/.machine) 
 if [ "$machine" = '' ]; then
 	echo "Ajoutez le nom de la machine dans"
-	echo "le fichier ~/.dotfile/conf/machine"
+	echo "le fichier ~/.machine"
 fi
 
 # color prompt
