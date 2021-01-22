@@ -64,10 +64,11 @@ while [ $boucle = 0 ]; do # menu
 	read -p "Faites votre choix : " rep
 
   # traitment de la réponse
-  if [ $rep == "q" ]; then # Sortie
+  echo '->'$rep
+  if [[ $rep == "q" ]]; then # Sortie
 	  echo "Au revoir"
 	  exit 0
-  elif [ $rep == "*" ]; then # Tous
+  elif [[ $rep == "*" ]]; then # Tous
 	  clear
 	  echo "Patientez ..."
 	  for conf in ${!tab[*]}; do
@@ -82,7 +83,6 @@ while [ $boucle = 0 ]; do # menu
 	  || creation_de_liens_symboliques $rep
 	  echo "Fait !"
   else # Erreur
-	  clear
 	  echo "Pardon, je n'ai pas compris ..."
   fi
 done
