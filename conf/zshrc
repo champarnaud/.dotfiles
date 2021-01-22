@@ -133,7 +133,7 @@ alias sconnect="ssh_tmux connect.mesdepanneurs.fr"
 alias srecette="ssh_tmux recette.mesdepanneurs.local"
 alias sutils="ssh_tmux utils.mesdepanneurs.local"
 alias sraspberry_wifi="ssh_tmux raspberry_wifi"
-
+alias pbc="php bin/console"
 
 # allow vi mode
 bindkey -v
