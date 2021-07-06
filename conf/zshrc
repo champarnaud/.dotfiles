@@ -113,8 +113,8 @@ alias winbox="wine /opt/win/winbox.exe"
 alias distupdate="sudo apt update && sudo apt upgrade"
 alias up_vagrant="cd ~/Developpement/MD/md-frontend-vagrant && vagrant up"
 alias down_vagrant="cd ~/Developpement/MD/md-frontend-vagrant && vagrant suspend"
-alias ll="ls -Alh"
-alias l="ls -lh"
+alias ll="ls -AlhG"
+alias ls="ls -lhG"
 alias cs="clear"
 alias python="python3"
 
@@ -127,11 +127,6 @@ alias gco="git commit -am"
 
 # alias de connection
 function ssh_tmux() { ssh -t "$1" "tmux a || tmux"; }
-alias soperator="ssh_tmux operator.mesdepanneurs.fr"
-alias sweball="ssh_tmux weball.mesdepanneurs.fr"
-alias sconnect="ssh_tmux connect.mesdepanneurs.fr"
-alias srecette="ssh_tmux recette.mesdepanneurs.local"
-alias sutils="ssh_tmux utils.mesdepanneurs.local"
 alias sraspberry_wifi="ssh_tmux raspberry_wifi"
 alias pbc="php bin/console"
 
