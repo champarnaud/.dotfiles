@@ -1,17 +1,19 @@
 #!/bin/bash
 
-echo $1
+echo $# $0 $1 $2 $3
 
-read -p "Quel est le répertoire d'origine ? (défaut .) : " orig
+if [ $# = 0 ]
+then
+	read -p "Quel est le répertoire d'origine ? (défaut .) : " orig
+	if [ -z $orig ]; then
+		orig='.'
+	fi
 
-if [ -z $orig ]; then
-	orig='.'
-fi
-
-read -p "Quel est le répertoire de destination ? : " dest
-while [ -z $dest ]; do
 	read -p "Quel est le répertoire de destination ? : " dest
-done
+	if [ -z $dest ]; then
+		dest='~'
+	fi
+fi
 
 echo $orig $dest
 

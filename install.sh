@@ -49,7 +49,6 @@ function creation_de_liens_symboliques() {
 function execution_de_script(){
 	echo "execusion de script : ${tab[$1]} " 
 	sh "$repscripts/${tab[$1]}"
-
 }
 
 #--- main
