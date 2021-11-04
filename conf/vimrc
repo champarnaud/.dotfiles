@@ -64,7 +64,7 @@ set smartindent
 " Tabulation = 4 espaces
 set tabstop=4
 set shiftwidth=4
-	
+
 "------------------------------------------------
 " Search options
 "------------------------------------------------
