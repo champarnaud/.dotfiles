@@ -109,10 +109,6 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias winbox="wine /opt/win/winbox.exe"
-alias distupdate="sudo apt update && sudo apt upgrade"
-alias up_vagrant="cd ~/Developpement/MD/md-frontend-vagrant && vagrant up"
-alias down_vagrant="cd ~/Developpement/MD/md-frontend-vagrant && vagrant suspend"
 alias ll="ls -AlhG"
 alias ls="ls -lhG"
 alias cs="clear"
