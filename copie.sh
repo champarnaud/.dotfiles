@@ -9,7 +9,7 @@ then
 		orig='.'
 	fi
 
-	read -p "Quel est le répertoire de destination ? : " dest
+	read -p "Quel est le répertoire de destination ? (defaut ~) : " dest
 	if [ -z $dest ]; then
 		dest='~'
 	fi
