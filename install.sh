@@ -6,7 +6,7 @@ export LC_ALL=C
 REPCONF="conf"
 REPSCRIPTS="scripts"
 #[ ! -s "$REPCONF/machine" ] || echo "" > "$REPCONF/machine"
-[ ! -s "$REPCONF/machine" ] || touch "$REPCONF/machine"
+[ ! -e "$REPCONF/machine" ] || touch "$REPCONF/machine"
 
 #--- LISTE DES FICHIERS ET REPERTOIRES DE CONFIGURATION
 tab=($(ls conf/ && ls scripts/))
