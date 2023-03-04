@@ -5,7 +5,7 @@ export LC_ALL=C
 #--- ENVIRONNEMENT
 REPCONF="conf"
 REPSCRIPTS="scripts"
-[ ! -s "$REPCONF/machine" ] || echo "" > "$repconf/machine"
+[ ! -s "$REPCONF/machine" ] || echo "" > "$REPCONF/machine"
 
 #--- LISTE DES FICHIERS ET REPERTOIRES DE CONFIGURATION
 tab=($(ls conf/ && ls scripts/))
@@ -24,7 +24,7 @@ function creation_de_liens_symboliques() {
 			echo "Essai de suppression de : ."$1
 			msg=$(rm ~/."$1" 2>&1)
 			if [ -z $msg ]; then
-				echo "Suppression de ===> ."$1
+				echo "Suppression de ====> ."$1
 				creation_de_liens_symboliques $1
 			else
 				echo "Impossible de supprimer : ."$1
@@ -68,7 +68,8 @@ do
 		*)
 			if [ $REPLY -le $((${#tab[@]} - 2)) ]
 			then
-				[[ $resp =~ \.sh$ ]] && execution_de_script $resp || creation_de_liens_symboliques $resp
+				[[ $resp =~ \.sh$ ]] && execution_de_script $resp \
+					|| creation_de_liens_symboliques $resp
 				echo "C'est fait. Autre chose ?"
 			else
 				echo "Demande incorrecte."
