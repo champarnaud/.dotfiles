@@ -65,6 +65,9 @@ set smartindent
 set tabstop=4
 set shiftwidth=4
 
+" affichage des 80 colones
+set colorcolumn=80
+
 "------------------------------------------------
 " Search options
 "------------------------------------------------
