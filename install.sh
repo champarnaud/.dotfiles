@@ -3,10 +3,12 @@
 export LC_ALL=C
 
 #--- ENVIRONNEMENT
-REPCONF="conf"
-REPSCRIPTS="scripts"
-#[ ! -s "$REPCONF/machine" ] || echo "" > "$REPCONF/machine"
-[ ! -e "$REPCONF/machine" ] || touch "$REPCONF/machine"
+# répertoires
+repconf="conf"
+repscripts="scripts"
+
+# Nom de la machine
+[ -e "$repconf/machine" ] || echo "" > "$repconf/machine"
 
 #--- LISTE DES FICHIERS ET REPERTOIRES DE CONFIGURATION
 tab=($(ls conf/ && ls scripts/))
@@ -15,7 +17,7 @@ tab=($(ls conf/ && ls scripts/))
 function creation_de_liens_symboliques() {
 
 	# création du lien symbolique vers le fichier dans le rep 'conf/'
-	msg=$(ln -s ~/.dotfiles/$REPCONF/"$1" ~/."$1" 2>&1)
+	msg=$(ln -s ~/.dotfiles/$repconf/"$1" ~/."$1" 2>&1)
 
 	# Si l'ancien fichier ou lien symbolique existe on le supprime
 	# pour le remplacer
@@ -37,21 +39,21 @@ function creation_de_liens_symboliques() {
 	else
 		echo "Installation de ===> ."$1
 		# si installation de la machine
-		if [[ ! -s "$REPCONF/machine" || "$1" == "machine" ]]; then
+		if [[ ! -s "$repconf/machine" || "$1" == "machine" ]]; then
 			read -p "Donnez un nom à votre machine : " machine
-			echo "$machine" > "$REPCONF/machine"
+			echo "$machine" > "$repconf/machine"
 		fi
 	fi
 }
 
 function execution_de_script(){
 	echo "execusion de script : $1 " 
-	sh "$REPSCRIPTS/$1}"
+	sh "$repscripts/$1}"
 }
 
 #--- main
 PS3="Faites votre choix : "
-echo="data ?"
+# echo="data ?"
 select resp in ${tab[*]} tout quit
 do
 	case $resp in
