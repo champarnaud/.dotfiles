@@ -109,8 +109,9 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias ll="ls -AlhG"
-alias ls="ls -lhG"
+alias distupdate="sudo apt update && sudo apt upgrade"
+alias ll="lsd -Alh"
+alias ls="lsd -lh"
 alias cs="clear"
 alias python="python3"
 
@@ -128,7 +129,6 @@ alias pbc="php bin/console"
 
 # allow vi mode
 bindkey -v
-
 
 
 export PATH="/usr/local/sbin:$PATH"
