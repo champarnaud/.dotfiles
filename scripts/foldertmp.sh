@@ -15,6 +15,9 @@ quisuisje=$(whoami)
 
 # ajout du cron
 testcron=$(crontab -l | grep "foldertmp")
-[ ! -z "$testcron" ] || (crontab -l; echo "10 * * * * cd ~/.dotfiles/scripts && sh foldertmp.sh") | crontab -
+[ ! -z "$testcron" ] || \
+	(crontab -l; \
+	echo "10 * * * * cd ~/.dotfiles/scripts && sh foldertmp.sh") |\
+	crontab -
 
 exit 0
