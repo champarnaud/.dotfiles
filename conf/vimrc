@@ -24,6 +24,7 @@ set showcmd
 
 " Always show status line
 set laststatus=2"
+set statusline+=col:\ %c,
 
 " Enhance command line completion
 set wildmenu
