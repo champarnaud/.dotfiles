@@ -8,6 +8,9 @@ set from = "jc@champarnaud.fr"
 # Nom de l'expéditeur
 set realname = "Jean-Christophe Champarnaud"
 
+# Signature
+set signature=~/.signature
+
 # Génération du champ from OUI
 set use_from = yes
 
@@ -15,6 +18,15 @@ set use_from = yes
 set spoolfile = /var/spool/mail/$USER
 set folder    = ~/mail
 set tmpdir    = ~/tmp
+set mbox_type = mbox
+set record    = "~/mail/sent"
+set postponed = "~/mail/postponed"
+
+set read_inc = 1
+set pager_stop = yes
+set smart_wrap = yes
+set markers = yes
+
 
 # configuration de VIM
 set editor = "vim -c 'set tw=72' -c 'set wrap'"
