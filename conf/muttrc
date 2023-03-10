@@ -27,6 +27,12 @@ set pager_stop = yes
 set smart_wrap = yes
 set markers = yes
 
+# sidebar
+set sidebar_visible = yes
+set sidebar_width = 20
+
+# dossiers
+set imap_check_subscribed
 
 # configuration de VIM
 set editor = "vim -c 'set tw=72' -c 'set wrap'"
@@ -42,7 +48,7 @@ set imap_pass="`cat ~/.mutt_pass`"
 set spoolfile="imaps://jc@champarnaud.fr@mail.gandi.net:993/INBOX"
 
 # On fixe la boite de réception
-set folder="imaps://imap.unixmail.fr/INBOX"
+set folder="imaps://mail.gandi.net/INBOX"
 # Les messages envoyés sont sauvegardé dans le dossier IMAP "Sent"
 set record="Sent"
 # Idem pour les brouillons
