@@ -1,4 +1,3 @@
 *.swp
 conf/machine
 conf/vim/.netrwhist
-logs/*
