@@ -1,5 +1,11 @@
 #! /bin/bash
 
+# TODO
+# Se servir de $? pour savoir si une acrion a réussi ou non 0=OK
+# Se servir de la sortie standart 1 pour envoyer vers un fichier de log 
+# Se sercir de la sortie error standart 2 pour envoyer vers un error-file
+
+
 export LC_ALL=C
 
 #--- ENVIRONNEMENT
