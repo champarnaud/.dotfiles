@@ -79,14 +79,9 @@ do
 				nommer_la_machine
 				;;
 			*)
-				if [ $REPLY -le $((${#tab[@]} - 2)) ]
-				then
-					[[ $option =~ \.sh$ ]] && execution_de_script $option \
-						|| creation_de_liens_symboliques $option
-											echo "C'est fait. Autre chose ?"
-										else
-											echo "Demande incorrecte."
-				fi
+				[[ $option =~ \.sh$ ]] && execution_de_script $option \
+					|| creation_de_liens_symboliques $option
+				echo "C'est fait. Autre chose ?"
 				;;
 		esac
 	else
