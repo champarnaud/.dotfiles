@@ -1,12 +1,11 @@
 #! /bin/bash
 
-# TODO
-# Se servir de $? pour savoir si une acrion a réussi ou non 0=OK
-# Se servir de la sortie standart 1 pour envoyer vers un fichier de log 
-# Se sercir de la sortie error standart 2 pour envoyer vers un error-file
-
-
-export LC_ALL=C
+################################################
+# installation script for console conf files
+# Author Jean-Christophe Champarnaud
+# mail jc@champarnaud.fr
+# Update 2023-03-10
+################################################
 
 #--- ENVIRONNEMENT
 # répertoires
@@ -16,75 +15,83 @@ repscripts="scripts"
 # Nom de la machine
 [ -e "$repconf/machine" ] || echo "" > "$repconf/machine"
 
-#--- LISTE DES FICHIERS ET REPERTOIRES DE CONFIGURATION
-tab=($(ls conf/ && ls scripts/))
-
 #--- FONCTIONS
-function creation_de_liens_symboliques() {
+creation_de_liens_symboliques() {
+
+	# test if file exist then save
+	if [ -f ~/.$1 ] && [ ! -L ~/.$1 ]
+	then
+		mv ~/.$1 ~/.$1.bak 1>>logs/install.log 2>>logs/error.log
+		echo "Le précédent fichier a été sauvegarde : $1.bak"
+	fi
+
+	# test if symlink to remove
+	if [ -L ~/.$1 ]
+	then
+		rm ~/.$1
+		echo "Le précédent lien symbolique vers $1 a été supprimé."
+	fi
 
 	# création du lien symbolique vers le fichier dans le rep 'conf/'
-	msg=$(ln -s ~/.dotfiles/$repconf/"$1" ~/."$1" 2>&1)
+	ln -s ~/.dotfiles/$repconf/$1 ~/.$1 1>>logs/install.log 2>>logs/error.log
 
-	# Si l'ancien fichier ou lien symbolique existe on le supprime
-	# pour le remplacer
-	if [ ! -z "$msg" ]; then
-		read -p "Voulez-vous supprimer le lien '$1' précédent ? [O/n] " suppr
-		if [[ $suppr =~ [oOyY] ]]; then
-			echo "Essai de suppression de : ."$1
-			msg=$(rm ~/."$1" 2>&1)
-			if [ -z $msg ]; then
-				echo "Suppression de ====> ."$1
-				creation_de_liens_symboliques $1
-			else
-				echo "Impossible de supprimer : ."$1
-				echo "Vérifiez que vous avez les droits"
-			fi
-		else
-			echo "Vous devez supprimer le fichier ."$1
-		fi
-	else
-		echo "Installation de ===> ."$1
-		# si installation de la machine
-		if [[ ! -s "$repconf/machine" || "$1" == "machine" ]]; then
-			read -p "Donnez un nom à votre machine : " machine
-			echo "$machine" > "$repconf/machine"
-		fi
-	fi
+	echo -e "Le lien symbolique vers $1 a été créé.\n"
 }
 
-function execution_de_script(){
+nommer_la_machine(){
+	read -p "Donnez un nom à votre machine : " machine
+	echo "$machine" > "$repconf/machine"
+}
+
+execution_de_script(){
 	echo "execusion de script : $1 " 
 	sh "$repscripts/$1}"
 }
 
-#--- main
+#--- MAIN
+# liste les fichiers et repertoires de configuration pour le menu
+tab=($(ls conf/ && ls scripts/))
+tab+=("Tout")
+tab+=("Quitter")
+options=${tab[*]}
+nb_options=${#tab[@]}
+
 PS3="Faites votre choix : "
-# echo="data ?"
-select resp in ${tab[*]} tout quit
+select option in $options
 do
-	case $resp in
-		"quit")
-			echo "Merci et au revoir"
-			exit 0
-			;;
-		"tout")
-			echo "Patientez ..." # Tous
-			for conf in ${!tab[*]}; do
-				creation_de_liens_symboliques $conf
-			done
-			echo "C'est fait. Autre chose ?"
-			;;
-		*)
-			if [ $REPLY -le $((${#tab[@]} - 2)) ]
-			then
-				[[ $resp =~ \.sh$ ]] && execution_de_script $resp \
-					|| creation_de_liens_symboliques $resp
+	if [[ " ${options[@]} " =~ " ${option} " ]]
+	then
+		echo "Vous avez choisi l'option : $option"
+
+		case $option in
+			"Quitter")
+				echo "Merci et au revoir"
+				exit 99
+				;;
+			"Tout")
+				echo -e "Patientez ...\n" # Tous
+				for conf in $options; do
+					creation_de_liens_symboliques $conf
+				done
 				echo "C'est fait. Autre chose ?"
-			else
-				echo "Demande incorrecte."
-			fi
-			;;
-	esac
+				;;
+			"machine")
+				nommer_la_machine
+				;;
+			*)
+				if [ $REPLY -le $((${#tab[@]} - 2)) ]
+				then
+					[[ $option =~ \.sh$ ]] && execution_de_script $option \
+						|| creation_de_liens_symboliques $option
+											echo "C'est fait. Autre chose ?"
+										else
+											echo "Demande incorrecte."
+				fi
+				;;
+		esac
+	else
+		echo "Option invalide. Veuillez choisir une option valide."
+	fi
 done
 exit 0
 
