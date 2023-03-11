@@ -8,8 +8,14 @@
 #--------------------------------------------
 
 # Appel de la mise à jour de Brew et extraction des paquest à mettre à jour
-/usr/local/bin/brew update && \
-/usr/local/bin/brew outdated > /tmp/brew.outdate && cat /tmp/brew.outdate
+/usr/local/bin/brew update 
+
+# Récupérer les paquets à mettre à jour
+/usr/local/bin/brew outdated > /tmp/brew.outdated
+
+# si pas de maj pas de mail
+nb_lignes=$(wc -l /tmp/brew.outdated | awk '{print $1}')
 
 # Envoi du mail
-mutt -s "Update brew à faire" jc@champarnaud.fr < /tmp/brew.outdate
+/usr/local/bin/mutt -s "Brew : $nb_lignes pack(s) to be updated" \
+	jc@champarnaud.fr < /tmp/brew.outdated 2> /dev/null

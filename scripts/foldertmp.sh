@@ -17,7 +17,7 @@ quisuisje=$(whoami)
 testcron=$(crontab -l | grep "foldertmp")
 [ ! -z "$testcron" ] || \
 	(crontab -l; \
-	echo "10 * * * * cd ~/.dotfiles/scripts && sh foldertmp.sh") |\
+	echo "*/15 * * * * cd ~/.dotfiles/scripts && sh foldertmp.sh") |\
 	crontab -
 
 exit 0
