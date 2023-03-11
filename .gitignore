@@ -2,4 +2,4 @@
 conf/machine
 conf/vim/.netrwhist
 logs/*.log
-scripts/Sent
+Sent
