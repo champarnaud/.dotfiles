@@ -55,5 +55,5 @@ set record="Sent"
 set postponed="Drafts"
 
 ### CONFIGURATION SMTP
-set smtp_pass = "j&GPnQx&qRNb5aBR"
+set smtp_pass = "`cat ~/.mutt_pass`"
 set smtp_url = "smtps://jc@champarnaud.fr@mail.gandi.net:465" # Oui, SSL :)
