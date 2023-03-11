@@ -45,7 +45,7 @@ nommer_la_machine(){
 
 execution_de_script(){
 	echo "execusion de script : $1 " 
-	sh "$repscripts/$1}"
+	sh "$repscripts/$1"
 }
 
 #--- MAIN

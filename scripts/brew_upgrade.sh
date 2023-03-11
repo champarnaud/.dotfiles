@@ -16,6 +16,10 @@
 # si pas de maj pas de mail
 nb_lignes=$(wc -l /tmp/brew.outdated | awk '{print $1}')
 
-# Envoi du mail
-/usr/local/bin/mutt -s "Brew : $nb_lignes pack(s) to be updated" \
-	jc@champarnaud.fr < /tmp/brew.outdated 2> /dev/null
+if [ $nb_lignes -gt 0 ] 
+then
+	# Envoi du mail
+	/usr/local/bin/mutt -s "Brew : $nb_lignes pack(s) to be updated" \
+		jc@champarnaud.fr < /tmp/brew.outdated 2> /dev/null
+fi
+
