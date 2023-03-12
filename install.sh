@@ -1,11 +1,11 @@
 #! /bin/bash
 
-################################################
+#------------------------------------------------------
 # installation script for console conf files
 # Author Jean-Christophe Champarnaud
 # mail jc@champarnaud.fr
-# Update 2023-03-10
-################################################
+# Update 2023-03-12
+#------------------------------------------------------
 
 #--- ENVIRONNEMENT
 # répertoires
@@ -45,7 +45,7 @@ nommer_la_machine(){
 
 execution_de_script(){
 	echo "execusion de script : $1 " 
-	sh "$repscripts/$1"
+	bash "$repscripts/$1"
 }
 
 #--- MAIN
