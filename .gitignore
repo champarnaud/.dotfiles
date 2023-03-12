@@ -1,5 +1,5 @@
 *.swp
 conf/machine
 conf/vim/.netrwhist
-logs/*.log
+logs/*
 Sent
