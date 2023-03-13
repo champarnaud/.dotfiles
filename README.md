@@ -13,7 +13,7 @@ cd ~/.dotfiles        # Se déplacer dans le dossier
 ```
 
 - Le fichier `install.sh` va créer les liens symboliques dans le
-répertoire `/home` de l'utilisateur vers le répertoire `.dotfiles`
+répertoire `/home/<user>` de l'utilisateur vers le répertoire `.dotfiles/`
 
 ## Scripts (`*.sh`)
 Ce sont des scripts de personalisations de l'environnement pour la plus part.
