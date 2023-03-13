@@ -7,6 +7,15 @@
 # Last update : 2023-03-11
 #--------------------------------------------
 
+#- S'assurer que l'on est sous mac
+os=$(uname -a | awk '{print $1}')
+
+if [ "$os" !=  "Darwin" ]
+then
+	echo "Ce n'est pas une plateforme Mac"
+	exit 1
+fi
+
 # Appel de la mise à jour de Brew et extraction des paquest à mettre à jour
 /usr/local/bin/brew update 
 
