@@ -39,3 +39,10 @@ Raccourcis :
 
 ### Zsh
 - Ajout du mode 'VI' à la saisie sur la ligne de commande
+
+### Tmux
+```
+Modification de l'init
+- <Ctrl+q>
+```
+
