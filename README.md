@@ -25,9 +25,10 @@ répertoire `/tmp` et un lien symbolique dans le `/home` de l'utlisateur
 courant vers ce répertoire
 
 ## Applications
-### raccourci Vim
+### Vim
 * Mode normale
 ```
+Raccourcis :
 - CTRL-x + CTRL-v 	# split vertical avec saisie du fichier à ouvrir
 - CTRL-x + CTRL-h 	# split horizontal avec saisie du fichier à ouvrir
 - ;i  			# reformatage de l'indentation
