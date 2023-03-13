@@ -9,19 +9,20 @@ Librement inspiré du projet https://github.com/Chewie/dotfiles
 - Puis : 
 ``` 
 cd ~/.dotfiles        # Se déplacer dans le dossier
-chmod +x install.sh   # Rendre le fichier install executable
 ./install.sh          # Exécuter l'installation
 ```
 
-- Le fichier `install.sh` va créer les liens symboliques dans le répertoire `Home` de l'utilisateur
-vers le répertoire `.dotfiles`
+- Le fichier `install.sh` va créer les liens symboliques dans le
+répertoire `Home` de l'utilisateur vers le répertoire `.dotfiles`
 
 ## Scripts (`*.sh`)
 Ce sont des scripts de personalisations de l'environnement pour la plus part.
-Vous pouvez les appliquer depuis la ligne de commandes ou les piloter depuis le script principale `install.sh` 
+Vous pouvez les appliquer depuis la ligne de commandes ou les piloter depuis 
+le script principale `install.sh` 
 
-* `foldertmp.sh` créé un répertoire pour l'utilisateur courant dans le rep '/tmp' et un lien symbolique dans le '/home' de l'utlisateur courant vers ce
-répertoire
+* `foldertmp.sh` créé un répertoire pour l'utilisateur courant dans le 
+répertoire '/tmp' et un lien symbolique dans le '/home' de l'utlisateur 
+courant vers ce répertoire
 
 ## Applications
 ### raccourci Vim
