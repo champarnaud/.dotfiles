@@ -20,6 +20,8 @@ w_bash=$(which bash)
 testcron=$(crontab -l | grep "$1")
 if [ -z "$testcron" ]
 then
-	echo "*/15 * * * * cd ~/.dotfiles/scripts && $w_bash $1.sh" >> mycron
-	injection_cron $inject 
+	echo "*/15 * * * * cd ~/.dotfiles/scripts && $w_bash $1.sh \
+		> /tmp/stdout.log 2> /tmp/stderr.log" \
+		>> mycron 
+			injection_cron 
 fi
