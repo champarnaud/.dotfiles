@@ -130,5 +130,5 @@ alias pbc="php bin/console"
 # allow vi mode
 bindkey -v
 
-
+eval "$(fzf --zsh)"
 export PATH="/usr/local/sbin:$PATH"
