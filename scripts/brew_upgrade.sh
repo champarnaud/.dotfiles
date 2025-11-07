@@ -4,7 +4,7 @@
 # Test des upgrade necessaire de brew
 # et envois de l'information par mail
 # Author : Jean-Christophe Champarnaud
-# Last update : 2023-03-11
+# Last update : 2025-11-07
 #--------------------------------------------
 
 #- S'assurer que l'on est sous mac
@@ -16,11 +16,17 @@ then
 	exit 1
 fi
 
+# Vérifier si brew est installé
+if ! command -v brew &> /dev/null; then
+	echo "Erreur: Homebrew n'est pas installé."
+	exit 1
+fi
+
 # Appel de la mise à jour de Brew et extraction des paquest à mettre à jour
-/usr/local/bin/brew update 
+brew update 
 
 # Récupérer les paquets à mettre à jour
-/usr/local/bin/brew outdated > /tmp/brew.outdated
+brew outdated > /tmp/brew.outdated
 
 # si pas de maj pas de mail
 nb_lignes=$(wc -l /tmp/brew.outdated | awk '{print $1}')

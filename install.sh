@@ -84,7 +84,7 @@ execution_de_script(){
 installable=($(ls conf/ && ls scripts/))
 tab=("${installable[@]}")
 tab+=("Tout")
-tab+=("Installer les outils")
+tab+=("Installer-les-outils")
 tab+=("Quitter")
 options=${tab[*]}
 nb_options=${#tab[@]}
