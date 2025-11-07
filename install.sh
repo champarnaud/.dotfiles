@@ -108,7 +108,7 @@ do
 				done
 				echo "C'est fait. Autre chose ?"
 				;;
-			"Installer les outils")
+			"Installer-les-outils")
 				echo "Installation des outils tmux, vim et mutt..."
 				if ./install_tools.sh; then
 					echo "Outils installés avec succès."
