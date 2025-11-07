@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #------------------------------------------------------
-# Script d'installation des outils tmux, vim et mutt
+# Script d'installation des outils tmux, vim, mutt, bat et lsd
 # Support macOS (brew) et Linux/Debian (apt)
 # Author: Jean-Christophe Champarnaud
 # Update: 2025-11-07
@@ -22,7 +22,7 @@ if [ "$os" = "Darwin" ]; then
     fi
     # Installation des paquets
     brew update
-    brew install tmux vim mutt
+    brew install tmux vim mutt bat lsd
     echo "Installation terminée sur macOS."
 
 elif [ "$os" = "Linux" ]; then
@@ -34,7 +34,7 @@ elif [ "$os" = "Linux" ]; then
     fi
     # Installation des paquets
     sudo apt update
-    sudo apt install -y tmux vim mutt
+    sudo apt install -y tmux vim mutt bat lsd
     echo "Installation terminée sur Linux."
 
 else
@@ -42,4 +42,4 @@ else
     exit 1
 fi
 
-echo "Les outils tmux, vim et mutt ont été installés avec succès."
+echo "Les outils tmux, vim, mutt, bat et lsd ont été installés avec succès."
