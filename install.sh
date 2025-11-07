@@ -16,7 +16,38 @@ repscripts="scripts"
 [ -e "$repconf/machine" ] || echo "" > "$repconf/machine"
 
 #--- FONCTIONS
+check_tool() {
+	local tool=""
+	case $1 in
+		tmux.conf) tool="tmux" ;;
+		vimrc) tool="vim" ;;
+		muttrc) tool="mutt" ;;
+		*) return 0 ;;  # pas de vérification nécessaire
+	esac
+	
+	if ! command -v "$tool" &> /dev/null; then
+		echo "$tool n'est pas installé."
+		read -p "Voulez-vous l'installer automatiquement ? (o/n) " response
+		if [[ $response =~ ^[oO]$ ]]; then
+			if ./install_tools.sh; then
+				echo "$tool installé avec succès."
+			else
+				echo "Échec de l'installation de $tool. Installation du dotfile annulée."
+				return 1
+			fi
+		else
+			echo "Installation annulée pour $1"
+			return 1
+		fi
+	fi
+	return 0
+}
+
 creation_de_liens_symboliques() {
+	# Vérification de l'outil requis
+	if ! check_tool "$1"; then
+		return 1
+	fi
 
 	# test if file exist then save
 	if [ -f ~/.$1 ] && [ ! -L ~/.$1 ]
@@ -50,8 +81,10 @@ execution_de_script(){
 
 #--- MAIN
 # liste les fichiers et repertoires de configuration pour le menu
-tab=($(ls conf/ && ls scripts/))
+installable=($(ls conf/ && ls scripts/))
+tab=("${installable[@]}")
 tab+=("Tout")
+tab+=("Installer les outils")
 tab+=("Quitter")
 options=${tab[*]}
 nb_options=${#tab[@]}
@@ -70,10 +103,19 @@ do
 				;;
 			"Tout")
 				echo -e "Patientez ...\n" # Tous
-				for conf in $options; do
+				for conf in "${installable[@]}"; do
 					creation_de_liens_symboliques $conf
 				done
 				echo "C'est fait. Autre chose ?"
+				;;
+			"Installer les outils")
+				echo "Installation des outils tmux, vim et mutt..."
+				if ./install_tools.sh; then
+					echo "Outils installés avec succès."
+				else
+					echo "Échec de l'installation des outils."
+				fi
+				echo "Autre chose ?"
 				;;
 			"machine")
 				nommer_la_machine
