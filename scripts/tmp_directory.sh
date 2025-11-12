@@ -33,4 +33,4 @@ quisuisje=$(whoami)
 [ -h ~/tmp ] || ln -s /tmp/"$quisuisje" ~/tmp
 
 # installation du cron
-source ~/.dotfiles/cron_manage.sh tmp_directory
+source ./cron_manage.sh tmp_directory
