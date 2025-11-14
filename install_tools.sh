@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #------------------------------------------------------
 # Script d'installation des outils tmux, vim, mutt, bat et lsd

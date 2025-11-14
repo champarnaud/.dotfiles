@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/usr/bin/env bash
 
 #--------------------------------------------
 # Test des upgrade necessaire de brew

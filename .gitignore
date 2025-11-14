@@ -3,3 +3,6 @@ conf/machine
 conf/vim/.netrwhist
 logs/*
 Sent
+
+# Git hooks (machine-specific)
+.git/hooks/*
