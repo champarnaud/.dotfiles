@@ -118,6 +118,7 @@ do
 				echo "Autre chose ?"
 				;;
 			"machine")
+				nommer_la_machine && creation_de_liens_symboliques machine
 				nommer_la_machine
 				;;
 			*)
