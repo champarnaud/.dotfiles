@@ -59,18 +59,19 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-# Recuperation du nom de la machine $MACHINE
-machine=$(cat ~/.machine) 
-if [ "$machine" = '' ]; then
+# Recuperation du nom de la machine $HOSTNAME
+HOSTNAME=$(cat ~/.machine) 
+if [ "$HOSTNAME" = '' ]; then
 	echo "Ajoutez le nom de la machine dans"
 	echo "le fichier ~/.machine"
 fi
+export HOSTNAME
 
 # color prompt
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@[\h][$machine]\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@[\h][$HOSTNAME]\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@[\h][$machine]:\w\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\u@[\h][$HOSTNAME]:\w\$ '
 fi
 unset color_prompt force_color_prompt
 

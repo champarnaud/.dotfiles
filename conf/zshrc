@@ -134,3 +134,11 @@ bindkey -v
 eval "$(fzf --zsh)"
 export PATH="/usr/local/sbin:$PATH"
 export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
+
+# Récupération du nom de la machine $HOSTNAME
+if [ -f ~/.machine ]; then
+    HOSTNAME=$(cat ~/.machine)
+    export HOSTNAME  # Pour rendre la variable disponible dans les scripts
+else
+    echo "Ajoutez le nom de la machine dans le fichier ~/.machine"
+fi
