@@ -42,18 +42,25 @@ set editor = "vim -c 'set tw=72' -c 'set wrap'"
 # set spoolfile="imaps://LOGIN:PASSWORD@mail.gandi.net:993/INBOX"
 # Si pas de mot de passe il sera demandé à la connection
 
-# récupération du mot de passe
-set imap_pass="`cat ~/.mutt_pass`"
-# Appel de la boite
-set spoolfile="`cat ~/.mutt_imap_mailbox`"
-
-# On fixe la boite de réception
-set folder="imaps://mail.gandi.net/INBOX"
-# Les messages envoyés sont sauvegardé dans le dossier IMAP "Sent"
-set record="Sent"
-# Idem pour les brouillons
-set postponed="Drafts"
-
 ### CONFIGURATION SMTP
+
+# Imap settings
+set imap_user = "jc.champarnaud@gmail.com"
+# récupération du mot de passe
+#set imap_pass="`cat ~/.mutt_pass`"
+set imap_pass="bF&x9ddRJ$Hd&HhL"
+# Smtp settings
+set smtp_url = "smtps://jc.champarnaud@smtp.gmail.com"
 set smtp_pass = "`cat ~/.mutt_pass`"
-set smtp_url = "`cat ~/.mutt_smtp`" # Oui, SSL :)
+
+# Remote gmail folders
+# On fixe la boite de réception
+set folder = "imaps://imap.gmail.com/"
+# Appel de la boite
+set spoolfile = "+INBOX"
+# Idem pour les brouillons
+set postponed = "+[Gmail]/Drafts"
+# Les messages envoyés sont sauvegardé dans le dossier IMAP "Sent"
+set record = "+[Gmail]/Sent Mail"
+# la corbeille
+set trash = "+[Gmail]/Trash"
