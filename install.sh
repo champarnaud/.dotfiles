@@ -110,7 +110,7 @@ do
 				;;
 			"Installer-les-outils")
 				echo "Installation des outils tmux, vim et mutt..."
-				if ./install_tools.sh; then
+				if ./scripts/install_tools.sh; then
 					echo "Outils installés avec succès."
 				else
 					echo "Échec de l'installation des outils."
