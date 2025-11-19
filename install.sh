@@ -49,6 +49,9 @@ creation_de_liens_symboliques() {
 		return 1
 	fi
 
+	# Créer le répertoire logs s'il n'existe pas
+	mkdir -p logs
+
 	# test if file exist then save
 	if [ -f ~/.$1 ] && [ ! -L ~/.$1 ]
 	then
@@ -85,6 +88,7 @@ installable=($(ls conf/ && ls scripts/))
 tab=("${installable[@]}")
 tab+=("Tout")
 tab+=("Installer-les-outils")
+tab+=("Installer-les-dépendances-Zsh")
 tab+=("Quitter")
 options=${tab[*]}
 nb_options=${#tab[@]}
@@ -114,6 +118,15 @@ do
 					echo "Outils installés avec succès."
 				else
 					echo "Échec de l'installation des outils."
+				fi
+				echo "Autre chose ?"
+				;;
+			"Installer-les-dépendances-Zsh")
+				echo "Installation des dépendances Zsh (Oh My Zsh, plugins, thème Powerlevel10k)..."
+				if ./scripts/install_zsh_deps.sh; then
+					echo "Dépendances Zsh installées avec succès."
+				else
+					echo "Échec de l'installation des dépendances Zsh."
 				fi
 				echo "Autre chose ?"
 				;;
