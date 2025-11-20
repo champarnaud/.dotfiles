@@ -24,6 +24,19 @@ Le script `install.sh` détecte automatiquement si les outils requis (tmux, vim,
 - **macOS** : Installation via Homebrew (`brew install tmux vim mutt bat lsd`)
 - **Linux Debian/Ubuntu** : Installation via apt (`sudo apt install tmux vim mutt bat lsd`)
 
+### Installation automatique des dépendances Zsh
+Le script `install.sh` propose une option dédiée pour installer automatiquement toutes les dépendances Zsh nécessaires (Oh My Zsh, plugins et thème Powerlevel10k).
+
+**Ce qui est installé :**
+- **Oh My Zsh** : Framework de configuration Zsh
+- **Thème Powerlevel10k** : Thème moderne et performant
+- **Plugins** : zsh-autosuggestions, zsh-completions, zsh-syntax-highlighting
+- **Outils** : fzf (fuzzy finder)
+
+**Support multi-OS :**
+- **macOS** : Installation via Homebrew et git
+- **Linux Debian/Ubuntu** : Installation via apt et git
+
 ### Scripts automatisés (`scripts/`)
 Ces scripts peuvent être exécutés individuellement ou intégrés au processus d'installation :
 
@@ -37,9 +50,9 @@ Ces scripts peuvent être exécutés individuellement ou intégrés au processus
 ## Configurations incluses
 
 ### Zsh
-Configuration complète avec :
-- **Oh My Zsh** et thème **Powerlevel10k**
-- Plugins : `zsh-autosuggestions`, `zsh-completions`, `zsh-syntax-highlighting`
+Configuration complète avec installation automatique des dépendances :
+- **Oh My Zsh** et thème **Powerlevel10k** (installés automatiquement)
+- Plugins : `zsh-autosuggestions`, `zsh-completions`, `zsh-syntax-highlighting` (installés automatiquement)
 - **Alias personnalisés** :
   - `ll="lsd -Alh"` et `ls="lsd -lh"` (remplacement moderne de ls)
   - `distupdate="sudo apt update && sudo apt upgrade"`
