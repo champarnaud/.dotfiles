@@ -134,3 +134,7 @@ export LC_ALL=C
 # Alias git commit -am
 alias gco="git commit -am"
 . "$HOME/.cargo/env"
+
+# pour intégration de VSCODE
+[[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path bash)"
+export PATH="/usr/local/sbin:$PATH"
