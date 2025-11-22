@@ -110,10 +110,17 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# MAJ apt
 alias distupdate="sudo apt update && sudo apt upgrade"
+
+# mise en forme ls
 alias ll="lsd -Alh"
 alias ls="lsd -lh"
+
+# Effacer l'écran
 alias cs="clear"
+
+# raccourci python 3
 alias python="python3"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
