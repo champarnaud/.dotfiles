@@ -93,7 +93,6 @@ EOF
 chmod +x .git/hooks/pre-push
 echo "✅ Pre-push hook created and made executable"
 
-
 echo ""
 echo "🎉 Git hooks initialized successfully!"
 echo ""
