@@ -3,6 +3,7 @@ conf/machine
 conf/vim/.netrwhist
 logs/*
 Sent
+.DS_store
 
 # Git hooks (machine-specific)
 .git/hooks/*

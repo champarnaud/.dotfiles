@@ -67,7 +67,7 @@ set smartindent
 set tabstop=4
 set shiftwidth=4
 
-" affichage des 80 colones
+" affichage des 80 colone
 " set colorcolumn=80
 " highlight ColorColumn ctermbg=grey
 
@@ -100,4 +100,6 @@ nmap <silent> ;i gg=G
 map <C-X><C-V> :vsplit 
 map <C-X><C-H> :sp 
 
+" Sauvegarde avec Ctrl+s (Normal, Insert, Visual, etc.)
+map <C-s> :w<CR>
 

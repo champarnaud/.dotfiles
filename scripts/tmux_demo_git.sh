@@ -33,11 +33,11 @@ tmux split-window -h
 
 # Sélectionner le premier pane et lancer une commande
 tmux select-pane -t 0
-tmux send-keys 'cd' C-m
+tmux send-keys 'cd ~/Development/folder-test/ && tree' C-m
 
 # Sélectionner le deuxième pane et lancer une autre commande
 tmux select-pane -t 1
-tmux send-keys 'htop' C-m
+tmux send-keys 'vim ~/Development/folder-test/commandes.txt' C-m
 tmux split-window -v
 
 # Sélectionner le troisième pane et lancer la surveillance des logs
