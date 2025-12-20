@@ -13,7 +13,7 @@ repconf="conf"
 repscripts="scripts"
 
 # Nom de la machine
-[ -e "$repconf/machine" ] || echo "" > "$repconf/machine"
+[[ -e "$repconf/machine" ]] || echo "" > "$repconf/machine"
 
 #--- FONCTIONS
 check_tool() {
@@ -53,14 +53,14 @@ creation_de_liens_symboliques() {
 	mkdir -p logs
 
 	# test if file exist then save
-	if [ -f ~/.$1 ] && [ ! -L ~/.$1 ]
+	if [[ -f ~/.$1 ]]
 	then
 		mv ~/.$1 ~/.$1.bak 1>>logs/install.log 2>>logs/error.log
 		echo "Le précédent fichier a été sauvegarde : $1.bak"
 	fi
 
 	# test if symlink to remove
-	if [ -L ~/.$1 ]
+	if [[ -L ~/.$1 ]]
 	then
 		rm ~/.$1
 		echo "Le précédent lien symbolique vers $1 a été supprimé."
@@ -84,6 +84,13 @@ execution_de_script(){
 
 #--- MAIN
 # liste les fichiers et repertoires de configuration pour le menu
+list=( $(ls conf/) )
+echo "dans le rep conf/ il y a ${#list[@]} fichiers"
+for (( i=0; i<${#list[@]}; i++));do
+	echo "clé: $i, valeur: ${list[$i]}" 
+done
+exit 0
+
 installable=($(ls conf/ && ls scripts/))
 tab=("${installable[@]}")
 tab+=("Tout")
@@ -103,7 +110,7 @@ do
 		case $option in
 			"Quitter")
 				echo "Merci et au revoir"
-				exit 99
+				exit 9
 				;;
 			"Tout")
 				echo -e "Patientez ...\n" # Tous
