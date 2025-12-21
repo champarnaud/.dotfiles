@@ -1,41 +1,42 @@
-# ~/.bashrc: executed by bash(1) f/r non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
+#-----------------------------------------------------------------------------#
+#					~/.bashrc: par jc@champarnaud.fr						  #
+#-----------------------------------------------------------------------------#
+
+# Recuperation du nom de la machine $HOSTNAME
+HOSTNAME=$(cat ~/.machine)
+if [[  "$HOSTNAME" = '' ]]; then
+	echo "Ajoutez le nom de la machine dans"
+	echo "le fichier ~/.machine"
+fi
+export HOSTNAME
+
+# Activations de quelques features de BASH
+shopt -s histappend		# Ajoute à l'historique n'écrase pas
+shopt -s extglob		# Etend les extglob
+shopt -s cdspell		# corrige les erreurs lors de CD
+shopt -s checkwinsize	# Check la taille de la fenêtre
+#shopt -s globstar		# "**" si utilisé dans le pathname etends la recherche
 
 # Ajout de la compatibilité de saisie en mode VI
 # activer acev <Escape>
 set -o vi
 # If not running interactively, don't do anything
 case $- in
-    *i*) ;;
-      *) return;;
+	*i*) ;;
+	*) return;;
 esac
 
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
-HISTCONTROL=ignoreboth
-
-# append to the history file, don't overwrite it
-shopt -s histappend
-
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+# Historique
+HISTCONTROL=ignoreboth # Evite la duplication des lignes dans l'historique
 HISTSIZE=1000
 HISTFILESIZE=2000
 
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
-shopt -s checkwinsize
-
-# If set, the pattern "**" used in a pathname expansion context will
-# match all files and zero or more directories and subdirectories.
-#shopt -s globstar
-
 # make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+[[ -x /usr/bin/lesspipe ]] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
+	xterm-color|*-256color) color_prompt=yes;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
@@ -44,61 +45,68 @@ esac
 force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
-    else
-	color_prompt=
-    fi
+	if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+		# We have color support; assume it's compliant with Ecma-48
+		# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+		# a case would tend to support setf rather than setaf.)
+		color_prompt=yes
+	else
+		color_prompt=
+	fi
 fi
 
-# Recuperation du nom de la machine $HOSTNAME
-HOSTNAME=$(cat ~/.machine) 
-if [ "$HOSTNAME" = '' ]; then
-	echo "Ajoutez le nom de la machine dans"
-	echo "le fichier ~/.machine"
-fi
-export HOSTNAME
+make-prompt() {
+	local rst=$'\e[0m'
+	local bold=$'\e[1m'
+	local co11=$'\e[38;5;24m'
+	local col2=$'\e[38;5;54m'
+	local col3=$'\e[38;5;114m'
+	local col4=$'\e[38;5;84m'
+
+	# make prompt: "dave@ysap $ "
+
+	# username
+	PS1='\['$col1'\]dave\['$rst'\]'
+	# @
+	PS1+='\['$bold'\]\['$c012'\]@\['$rst'\]'
+	# hostname
+	PS1+='\['$col3'\]ysap '
+	# prompt character
+	PS1+='\['$co14'\]\$\['$rst'\] '
+}
 
 # color prompt
 if [ "$color_prompt" = yes ]; then
-    PS1='\033[01;32m\]\u@[$HOSTNAME]\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+	#    PS1='\033[01;32m\]\u@[$HOSTNAME]\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+	make-prompt
 else
-    PS1='\u@[$HOSTNAME]:\w\$ '
+	PS1='\u@[$HOSTNAME]:\w\$ '
 fi
 unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;\u@[\h][connect]: \w\a\]$PS1"
-    ;;
-*)
-    ;;
+	xterm*|rxvt*)
+		PS1="\[\e]0;\u@[\h][connect]: \w\a\]$PS1"
+		;;
+	*)
+		;;
 esac
 
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    alias dir='dir --color=auto'
-    alias vdir='vdir --color=auto'
 
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
-
-# some more ls aliases
+# Alias
+alias ls='ls -p --color=auto'
 alias ll='ls -AlFhp --color=auto'
 alias la='ls -Ap --color=auto'
 alias l='ls -1sp --color=auto'
-
-# alias divers
 alias c='clear'
 alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+# Alias git commit -am
+alias gco="git commit -am"
+. "$HOME/.cargo/env"
+
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -110,26 +118,21 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
 if [[ -f ~/.bash_aliases ]]; then
-    . ~/.bash_aliases
+	. ~/.bash_aliases
 fi
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
+	if [ -f /usr/share/bash-completion/bash_completion ]; then
+		. /usr/share/bash-completion/bash_completion
+	elif [ -f /etc/bash_completion ]; then
+		. /etc/bash_completion
+	fi
 fi
 
-
 export LC_ALL=C
-
-# Alias git commit -am
-alias gco="git commit -am"
-. "$HOME/.cargo/env"
 
 # pour intégration de VSCODE
 [[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path bash)"

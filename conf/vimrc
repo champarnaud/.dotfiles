@@ -24,8 +24,9 @@ set showcmd
 
 " Always show status line
 set laststatus=2"
-set statusline+=col:\ %c,
-set statusline=%F\ Line\ %l/%L
+"set statusline+=col:\ %c,
+"set statusline=%F\ Line\ %l/%L Column:\ %c
+set statusline+=%F\ col:\ %4c\ line:\ %3l/%-3L
 
 " Enhance command line completion
 set wildmenu
@@ -41,6 +42,11 @@ set wrap
 
 " Wrap on column 80
 set textwidth=79
+
+" Afficher le numéro de colonne dans la barre de statut
+set ruler
+
+" Afficher la position ligne:colonne en bas à droite
 
 " Disable preview window on completion
 set completeopt=longest,menuone
@@ -103,3 +109,8 @@ map <C-X><C-H> :sp
 " Sauvegarde avec Ctrl+s (Normal, Insert, Visual, etc.)
 map <C-s> :w<CR>
 
+" ---------------------------------------------
+" Highlight Unwanted Whitespace
+" ---------------------------------------------
+highlight RedundantWhitespace ctermbg=green guibg=green
+match RedundantWhitespace /\s\+$\| \+\ze\t/
