@@ -24,7 +24,7 @@ check_tool() {
 		muttrc) tool="mutt" ;;
 		*) return 0 ;;  # pas de vérification nécessaire
 	esac
-	
+
 	if ! command -v "$tool" &> /dev/null; then
 		echo "$tool n'est pas installé."
 		read -p "Voulez-vous l'installer automatiquement ? (o/n) " response

@@ -58,7 +58,7 @@ fi
 make-prompt() {
 	local rst=$'\e[0m'
 	local bold=$'\e[1m'
-	local co11=$'\e[38;5;24m'
+	local col1=$'\e[38;5;24m'
 	local col2=$'\e[38;5;54m'
 	local col3=$'\e[38;5;114m'
 	local col4=$'\e[38;5;84m'
@@ -66,13 +66,13 @@ make-prompt() {
 	# make prompt: "dave@ysap $ "
 
 	# username
-	PS1='\['$col1'\]dave\['$rst'\]'
+	PS1='\['$col1'\]$(whoami)\['$rst'\]'
 	# @
-	PS1+='\['$bold'\]\['$c012'\]@\['$rst'\]'
+	PS1+='\['$bold'\]\['$col2'\]@\['$rst'\]'
 	# hostname
-	PS1+='\['$col3'\]ysap '
+	PS1+='\['$col3'\]$HOSTNAME '
 	# prompt character
-	PS1+='\['$co14'\]\$\['$rst'\] '
+	PS1+='\['$col4'\]\$\['$rst'\] '
 }
 
 # color prompt
@@ -145,3 +145,22 @@ export LS_COLOR='ExGxbEaECxxEhEhBaDaCaD'
 export PAGER='less'
 export TZ='Europe/Paris'
 export VISUAL='vim'
+
+# un peu de couleur
+if [[ $- == *i* ]]; then  # Si shell interactif
+    # Définir des couleurs pratiques
+    RED='\e[38;5;196m'
+    GREEN='\e[38;5;46m'
+    YELLOW='\e[38;5;226m'
+    BLUE='\e[38;5;33m'
+    MAGENTA='\e[38;5;201m'
+    CYAN='\e[38;5;51m'
+    ORANGE='\e[38;5;208m'
+    PURPLE='\e[38;5;93m'
+    LIME='\e[38;5;84m'
+    RESET='\e[0m'
+
+    # Exporter pour les scripts
+    export RED GREEN YELLOW BLUE MAGENTA CYAN ORANGE PURPLE LIME RESET
+fi
+
