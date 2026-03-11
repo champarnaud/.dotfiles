@@ -1,34 +1,35 @@
 #!/usr/bin/env bash
 
-echo $# $0 $1 $2 $3
+#------------------------------------------------------
+# Script de copie récursive d'un répertoire vers un autre
+# Demande les répertoires source et destination si non fournis
+# Author : Jean-Christophe Champarnaud
+#------------------------------------------------------
 
-if [ $# -eq 0 ]
-then
-	read -p "Quel est le répertoire d'origine ? (défaut .) : " orig
-	if [ -z "$orig" ]; then
-		orig='.'
-	fi
+set -euo pipefail
 
-	read -p "Quel est le répertoire de destination ? (defaut ~) : " dest
-	if [ -z "$dest" ]; then
-		dest='~'
-	fi
+readonly SCRIPT_NAME="$(basename "$0")"
+
+if [[ $# -eq 0 ]]; then
+	read -rp "Quel est le répertoire d'origine ? (défaut .) : " orig
+	orig="${orig:-.}"
+
+	read -rp "Quel est le répertoire de destination ? (defaut ~) : " dest
+	dest="${dest:-$HOME}"
 else
-	orig=${1:-'.'}
-	dest=${2:-'~'}
-fi
-
+	orig="${1:-.}"
+	dest="${2:-$HOME}"
 echo "Origine: $orig"
 echo "Destination: $dest"
 
 # Vérifier que le répertoire d'origine existe
-if [ ! -d "$orig" ]; then
+if [[ ! -d "$orig" ]]; then
 	echo "Erreur: Le répertoire d'origine '$orig' n'existe pas."
 	exit 1
 fi
 
 # Créer le répertoire de destination si nécessaire
-if [ ! -d "$dest" ]; then
+if [[ ! -d "$dest" ]]; then
 	mkdir -p "$dest"
 fi
 

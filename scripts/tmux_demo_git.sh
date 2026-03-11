@@ -1,12 +1,19 @@
 #!/usr/bin/env bash
 
+#------------------------------------------------------
+# Script de démo tmux pour un projet git
+# Crée une session tmux avec plusieurs panes
+#------------------------------------------------------
+
+set -euo pipefail
+
 # Vérifier si on est en mode auto (appelé depuis tmux.conf)
 AUTO_MODE=false
-if [[ "$1" == "--auto" ]]; then
+if [[ "${1:-}" == "--auto" ]]; then
     AUTO_MODE=true
 fi
 
-my_session=$(echo $HOSTNAME)
+my_session="$HOSTNAME"
 
 # Si en mode auto, vérifier qu'on n'est pas déjà dans une session configurée
 if $AUTO_MODE; then

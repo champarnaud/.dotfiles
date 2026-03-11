@@ -6,11 +6,14 @@
 # Last update : 2025-11-15
 #--------------------------------------------
 
-# S'assurer que l'on est sous mac
-os=$(uname -a | awk '{print $1}')
+set -euo pipefail
 
-if [ "$os" != "Darwin" ]
-then
+readonly SCRIPT_NAME="$(basename "$0")"
+
+# S'assurer que l'on est sous mac
+os=$(uname -s)
+
+if [[ "$os" != "Darwin" ]]; then
     echo "Ce n'est pas une plateforme Mac"
     exit 1
 fi

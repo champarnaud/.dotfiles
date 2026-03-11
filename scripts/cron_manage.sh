@@ -7,7 +7,16 @@
 # Last update : 2025-11-07
 #-------------------------------------------------------
 
-w_bash=$(which bash)
+set -euo pipefail
+
+readonly SCRIPT_NAME="$(basename "$0")"
+
+w_bash=$(command -v bash)
+
+if [[ -z "$w_bash" ]]; then
+    echo "Erreur: bash introuvable."
+    exit 1
+fi
 
 # Récupérer la crontab actuelle
 current_cron=$(crontab -l 2>/dev/null || echo "")
@@ -20,6 +29,8 @@ if ! echo "$current_cron" | grep -qF "$cron_line"; then
     # Ajouter la nouvelle ligne et recharger la crontab
     (echo "$current_cron"; echo "$cron_line") | crontab -
     echo "Tâche cron ajoutée pour tmp_directory"
+    # Rafraîchir current_cron après modification
+    current_cron=$(crontab -l 2>/dev/null || echo "")
 else
     echo "Tâche cron déjà présente pour tmp_directory"
 fi

@@ -7,12 +7,16 @@
 # Update: 2025-11-07
 #------------------------------------------------------
 
+set -euo pipefail
+
+readonly SCRIPT_NAME="$(basename "$0")"
+
 # Détection de l'OS
 os=$(uname -s)
 
 echo "Détection de l'OS: $os"
 
-if [ "$os" = "Darwin" ]; then
+if [[ "$os" == "Darwin" ]]; then
     echo "Installation sur macOS avec Homebrew..."
     # Vérifier si brew est installé
     if ! command -v brew &> /dev/null; then
@@ -25,7 +29,7 @@ if [ "$os" = "Darwin" ]; then
     brew install tmux vim mutt bat lsd
     echo "Installation terminée sur macOS."
 
-elif [ "$os" = "Linux" ]; then
+elif [[ "$os" == "Linux" ]]; then
     echo "Installation sur Linux avec apt..."
     # Vérifier si apt est disponible
     if ! command -v apt &> /dev/null; then

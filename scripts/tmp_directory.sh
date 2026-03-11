@@ -8,11 +8,15 @@
 # Last update : 2025-11-07
 #----------------------------------------------------------
 
+set -euo pipefail
+
+readonly SCRIPT_NAME="$(basename "$0")"
+
 # Vérification de l'OS supporté
 os=$(uname -s)
-if [ "$os" = "Darwin" ]; then
+if [[ "$os" == "Darwin" ]]; then
     echo "Configuration pour macOS"
-elif [ "$os" = "Linux" ]; then
+elif [[ "$os" == "Linux" ]]; then
     if command -v apt &> /dev/null; then
         echo "Configuration pour Linux Debian/Ubuntu"
     else
@@ -26,11 +30,11 @@ fi
 
 quisuisje=$(whoami)
 
-# vérification si /tmp/jcc existe sinon création	
-[ -d /tmp/jcc ] || mkdir /tmp/"$quisuisje"
+# vérification si /tmp/<user> existe sinon création
+[[ -d "/tmp/$quisuisje" ]] || mkdir "/tmp/$quisuisje"
 
 # vérification si le raccourci est présent dans /home/<user>
-[ -h ~/tmp ] || ln -s /tmp/"$quisuisje" ~/tmp
+[[ -h ~/tmp ]] || ln -s "/tmp/$quisuisje" ~/tmp
 
 # installation du cron
-source ./cron_manage.sh tmp_directory
+bash "$(dirname "$0")/cron_manage.sh"

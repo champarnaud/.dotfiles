@@ -7,10 +7,14 @@
 # Update 2023-03-12
 #------------------------------------------------------
 
+set -euo pipefail
+
+readonly SCRIPT_NAME="$(basename "$0")"
+
 #--- ENVIRONNEMENT
 # répertoires
-repconf="conf"
-repscripts="scripts"
+readonly repconf="conf"
+readonly repscripts="scripts"
 
 # Nom de la machine
 [[ -e "$repconf/machine" ]] || echo "" > "$repconf/machine"
@@ -27,7 +31,7 @@ check_tool() {
 
 	if ! command -v "$tool" &> /dev/null; then
 		echo "$tool n'est pas installé."
-		read -p "Voulez-vous l'installer automatiquement ? (o/n) " response
+		read -rp "Voulez-vous l'installer automatiquement ? (o/n) " response
 		if [[ $response =~ ^[oO]$ ]]; then
 			if ./install_tools.sh; then
 				echo "$tool installé avec succès."
@@ -67,13 +71,13 @@ creation_de_liens_symboliques() {
 	fi
 
 	# création du lien symbolique vers le fichier dans le rep 'conf/'
-	ln -s ~/.dotfiles/$repconf/$1 ~/.$1 1>>logs/install.log 2>>logs/error.log
+	ln -s "$HOME/.dotfiles/${repconf}/${1}" "$HOME/.${1}" 1>>logs/install.log 2>>logs/error.log
 
 	echo -e "Le lien symbolique vers $1 a été créé.\n"
 }
 
 nommer_la_machine(){
-	read -p "Donnez un nom à votre machine : " machine
+	read -rp "Donnez un nom à votre machine : " machine
 	echo "$machine" > "$repconf/machine"
 }
 
@@ -84,14 +88,13 @@ execution_de_script(){
 
 #--- MAIN
 # liste les fichiers et repertoires de configuration pour le menu
-list=( $(ls conf/) )
+list=( conf/* )
 echo "dans le rep conf/ il y a ${#list[@]} fichiers"
 for (( i=0; i<${#list[@]}; i++));do
 	echo "clé: $i, valeur: ${list[$i]}" 
 done
-exit 0
 
-installable=($(ls conf/ && ls scripts/))
+installable=( conf/* scripts/*.sh )
 tab=("${installable[@]}")
 tab+=("Tout")
 tab+=("Installer-les-outils")
@@ -115,7 +118,7 @@ do
 			"Tout")
 				echo -e "Patientez ...\n" # Tous
 				for conf in "${installable[@]}"; do
-					creation_de_liens_symboliques $conf
+					creation_de_liens_symboliques "$conf"
 				done
 				echo "C'est fait. Autre chose ?"
 				;;
@@ -142,8 +145,8 @@ do
 				nommer_la_machine
 				;;
 			*)
-				[[ $option =~ \.sh$ ]] && execution_de_script $option \
-					|| creation_de_liens_symboliques $option
+				[[ $option =~ \.sh$ ]] && execution_de_script "$option" \
+					|| creation_de_liens_symboliques "$option"
 				echo "C'est fait. Autre chose ?"
 				;;
 		esac
