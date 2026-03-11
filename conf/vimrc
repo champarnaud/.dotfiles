@@ -114,3 +114,6 @@ map <C-s> :w<CR>
 " ---------------------------------------------
 highlight RedundantWhitespace ctermbg=green guibg=green
 match RedundantWhitespace /\s\+$\| \+\ze\t/
+
+" FZF
+set rtp+=/opt/homebrew/opt/fzf
