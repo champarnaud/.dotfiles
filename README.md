@@ -65,7 +65,7 @@ améliorer les actions de manière contextuelle.
 
 | Script | Option | Effet |
 |---|---|---|
-| `copie.sh` | `--smart` | Classe les fichiers en "finaux" / "brouillons" via `fm` et ne copie que les finaux |
+| `copie.sh` | `--smart` | Classe jusqu'à 40 fichiers selon leur chemin et un aperçu limité des fichiers texte, puis copie uniquement ceux jugés finalisés |
 | `scripts/brew_upgrade.sh` | `--smart` | Génère un résumé intelligent des mises à jour Homebrew dans le mail |
 | `install.sh` | `--smart` | Mode conversationnel : décrivez ce que vous voulez installer en langage naturel |
 
