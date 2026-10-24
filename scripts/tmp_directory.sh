@@ -8,6 +8,8 @@
 # Last update : 2025-11-07
 #----------------------------------------------------------
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 # Vérification de l'OS supporté
 os=$(uname -s)
 if [ "$os" = "Darwin" ]; then
@@ -33,4 +35,4 @@ quisuisje=$(whoami)
 [ -h ~/tmp ] || ln -s /tmp/"$quisuisje" ~/tmp
 
 # installation du cron
-source ./cron_manage.sh tmp_directory
+source "$SCRIPT_DIR/cron_manage.sh"

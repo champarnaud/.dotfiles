@@ -15,6 +15,19 @@ echo "🔧 Installation des dépendances Zsh..."
 echo "Détection de l'OS: $os"
 echo ""
 
+run_or_fail() {
+    local description="$1"
+    shift
+
+    if "$@"; then
+        return 0
+    else
+        local status=$?
+        echo "❌ Échec : $description" >&2
+        return "$status"
+    fi
+}
+
 # Fonction d'installation pour macOS
 install_macos() {
     echo "📍 Installation sur macOS avec Homebrew..."
@@ -36,7 +49,7 @@ install_macos() {
     # Installer Powerlevel10k
     if [ ! -d "$HOME/.oh-my-zsh/custom/themes/powerlevel10k" ]; then
         echo "🎨 Installation du thème Powerlevel10k..."
-        git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $HOME/.oh-my-zsh/custom/themes/powerlevel10k
+        run_or_fail "clonage de Powerlevel10k" git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$HOME/.oh-my-zsh/custom/themes/powerlevel10k" || return $?
     else
         echo "✅ Powerlevel10k déjà installé"
     fi
@@ -47,7 +60,7 @@ install_macos() {
     # zsh-autosuggestions
     if [ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]; then
         echo "🔧 Installation du plugin zsh-autosuggestions..."
-        git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+        run_or_fail "clonage de zsh-autosuggestions" git clone https://github.com/zsh-users/zsh-autosuggestions "$ZSH_CUSTOM/plugins/zsh-autosuggestions" || return $?
     else
         echo "✅ zsh-autosuggestions déjà installé"
     fi
@@ -55,7 +68,7 @@ install_macos() {
     # zsh-completions
     if [ ! -d "$ZSH_CUSTOM/plugins/zsh-completions" ]; then
         echo "🔧 Installation du plugin zsh-completions..."
-        git clone https://github.com/zsh-users/zsh-completions $ZSH_CUSTOM/plugins/zsh-completions
+        run_or_fail "clonage de zsh-completions" git clone https://github.com/zsh-users/zsh-completions "$ZSH_CUSTOM/plugins/zsh-completions" || return $?
     else
         echo "✅ zsh-completions déjà installé"
     fi
@@ -63,7 +76,7 @@ install_macos() {
     # zsh-syntax-highlighting
     if [ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ]; then
         echo "🔧 Installation du plugin zsh-syntax-highlighting..."
-        git clone https://github.com/zsh-users/zsh-syntax-highlighting $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+        run_or_fail "clonage de zsh-syntax-highlighting" git clone https://github.com/zsh-users/zsh-syntax-highlighting "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" || return $?
     else
         echo "✅ zsh-syntax-highlighting déjà installé"
     fi
@@ -71,9 +84,14 @@ install_macos() {
     # Installer fzf si pas présent
     if ! command -v fzf &> /dev/null; then
         echo "🔍 Installation de fzf..."
-        brew install fzf
+        run_or_fail "installation de fzf avec Homebrew" brew install fzf || return $?
         # Installer les completions fzf
-        $(brew --prefix)/opt/fzf/install --no-bash --no-fish --key-bindings --completion --no-update-rc
+        local brew_prefix
+        brew_prefix=$(brew --prefix) || {
+            echo "❌ Échec : récupération du préfixe Homebrew." >&2
+            return 1
+        }
+        "$brew_prefix/opt/fzf/install" --no-bash --no-fish --key-bindings --completion --no-update-rc || return $?
     else
         echo "✅ fzf déjà installé"
     fi
@@ -102,7 +120,7 @@ install_linux() {
     # Installer Powerlevel10k
     if [ ! -d "$HOME/.oh-my-zsh/custom/themes/powerlevel10k" ]; then
         echo "🎨 Installation du thème Powerlevel10k..."
-        git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $HOME/.oh-my-zsh/custom/themes/powerlevel10k
+        run_or_fail "clonage de Powerlevel10k" git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$HOME/.oh-my-zsh/custom/themes/powerlevel10k" || return $?
     else
         echo "✅ Powerlevel10k déjà installé"
     fi
@@ -113,7 +131,7 @@ install_linux() {
     # zsh-autosuggestions
     if [ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]; then
         echo "🔧 Installation du plugin zsh-autosuggestions..."
-        git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+        run_or_fail "clonage de zsh-autosuggestions" git clone https://github.com/zsh-users/zsh-autosuggestions "$ZSH_CUSTOM/plugins/zsh-autosuggestions" || return $?
     else
         echo "✅ zsh-autosuggestions déjà installé"
     fi
@@ -121,7 +139,7 @@ install_linux() {
     # zsh-completions
     if [ ! -d "$ZSH_CUSTOM/plugins/zsh-completions" ]; then
         echo "🔧 Installation du plugin zsh-completions..."
-        git clone https://github.com/zsh-users/zsh-completions $ZSH_CUSTOM/plugins/zsh-completions
+        run_or_fail "clonage de zsh-completions" git clone https://github.com/zsh-users/zsh-completions "$ZSH_CUSTOM/plugins/zsh-completions" || return $?
     else
         echo "✅ zsh-completions déjà installé"
     fi
@@ -129,7 +147,7 @@ install_linux() {
     # zsh-syntax-highlighting
     if [ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ]; then
         echo "🔧 Installation du plugin zsh-syntax-highlighting..."
-        git clone https://github.com/zsh-users/zsh-syntax-highlighting $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+        run_or_fail "clonage de zsh-syntax-highlighting" git clone https://github.com/zsh-users/zsh-syntax-highlighting "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" || return $?
     else
         echo "✅ zsh-syntax-highlighting déjà installé"
     fi
@@ -137,8 +155,8 @@ install_linux() {
     # Installer fzf si pas présent
     if ! command -v fzf &> /dev/null; then
         echo "🔍 Installation de fzf..."
-        sudo apt update
-        sudo apt install -y fzf
+        run_or_fail "mise à jour des dépôts apt" sudo apt update || return $?
+        run_or_fail "installation de fzf avec apt" sudo apt install -y fzf || return $?
     else
         echo "✅ fzf déjà installé"
     fi
@@ -149,10 +167,10 @@ install_linux() {
 # Installation selon l'OS
 case "$os" in
     "Darwin")
-        install_macos
+        install_macos || exit $?
         ;;
     "Linux")
-        install_linux
+        install_linux || exit $?
         ;;
     *)
         echo "❌ OS non supporté ($os). Ce script supporte macOS et Linux Debian/Ubuntu uniquement."

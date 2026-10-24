@@ -5,15 +5,20 @@ Projet de rassemblement des fichiers de configurations
 Librement inspiré du projet https://github.com/Chewie/dotfiles
 
 ## Installation
-- cloner le projet dans le répertoire de l'utilisateur 
-- Puis : 
-``` 
-cd ~/.dotfiles        # Se déplacer dans le dossier
-./install.sh          # Exécuter l'installation
+Clonez le projet dans le répertoire de votre choix, puis lancez l'installateur :
+
+```bash
+cd /chemin/vers/le/dépôt
+./install.sh
 ```
 
-- Le fichier `install.sh` va créer les liens symboliques dans le
-répertoire `/home/<user>` de l'utilisateur vers le répertoire `.dotfiles/`
+`~/.dotfiles` reste un emplacement conventionnel, mais n'est pas obligatoire.
+Les chemins des configurations et des scripts sont calculés depuis le dépôt ;
+`install.sh` peut donc aussi être lancé depuis un autre répertoire.
+
+L'installateur crée les liens symboliques dans le répertoire personnel (`~`).
+L'option **Tout** lie uniquement les fichiers de configuration ; les scripts
+restent disponibles séparément dans le menu.
 
 ## Fonctionnalités avancées
 
@@ -24,6 +29,9 @@ Le script `install.sh` détecte automatiquement si les outils requis (tmux, vim,
 - **macOS** : Installation via Homebrew (`brew install tmux vim mutt bat lsd`)
 - **Linux Debian/Ubuntu** : Installation via apt (`sudo apt install tmux vim mutt bat lsd`)
 
+Les scripts signalent les échecs de mise à jour ou d'installation des paquets,
+ainsi que les échecs de clonage des dépendances Zsh, au lieu d'annoncer un succès.
+
 ### Installation automatique des dépendances Zsh
 Le script `install.sh` propose une option dédiée pour installer automatiquement toutes les dépendances Zsh nécessaires (Oh My Zsh, plugins et thème Powerlevel10k).
 
@@ -33,19 +41,47 @@ Le script `install.sh` propose une option dédiée pour installer automatiquemen
 - **Plugins** : zsh-autosuggestions, zsh-completions, zsh-syntax-highlighting
 - **Outils** : fzf (fuzzy finder)
 
-**Support multi-OS :**
-- **macOS** : Installation via Homebrew et git
-- **Linux Debian/Ubuntu** : Installation via apt et git
-
 ### Scripts automatisés (`scripts/`)
 Ces scripts peuvent être exécutés individuellement ou intégrés au processus d'installation :
 
-* **`tmp_directory.sh`** : Crée un répertoire temporaire personnel (`/tmp/<user>`) et un lien symbolique (`~/tmp`). Installe automatiquement une tâche cron pour maintenance (toutes les 5 minutes)
+* **`tmp_directory.sh`** : Crée un répertoire temporaire personnel (`/tmp/<user>`) et un lien symbolique (`~/tmp`), puis configure les tâches cron du projet.
 * **`brew_upgrade.sh`** : Vérifie les mises à jour Homebrew disponibles et envoie un rapport par email (macOS uniquement)
-* **`cron_manage.sh`** : Gestionnaire optimisé des tâches cron pour les scripts du projet
+* **`cron_manage.sh`** : Ajoute les tâches cron de maintenance (toutes les 5 minutes) et de mise à jour Homebrew (tous les jours à 10 h), en préservant les tâches existantes. Les commandes utilisent le chemin réel du dépôt.
 
 ### Script utilitaire
 * **`copie.sh`** : Script de copie récursive avec vérifications (origine, destination, permissions)
+
+### Intégration Apple Foundation Models (macOS 27+)
+
+Sur macOS 27 et versions ultérieures, certains scripts offrent une option
+`--smart` qui utilise **Apple Foundation Models** via l'outil `fm` pour
+améliorer les actions de manière contextuelle.
+
+**Prérequis :**
+- macOS 27+ (l'outil `fm` est préinstallé)
+- `jq` installé (`brew install jq`)
+
+**Scripts concernés :**
+
+| Script | Option | Effet |
+|---|---|---|
+| `copie.sh` | `--smart` | Classe les fichiers en "finaux" / "brouillons" via `fm` et ne copie que les finaux |
+| `scripts/brew_upgrade.sh` | `--smart` | Génère un résumé intelligent des mises à jour Homebrew dans le mail |
+| `install.sh` | `--smart` | Mode conversationnel : décrivez ce que vous voulez installer en langage naturel |
+
+**Exemples :**
+
+```bash
+# Copie intelligente : ne garde que les fichiers finaux
+./copie.sh --smart ~/projet ~/backup
+
+# Rapport brew avec résumé
+./scripts/brew_upgrade.sh --smart
+
+# Installation guidée en langage naturel
+./install.sh --smart
+# > je veux tmux et zsh, pas mutt
+```
 
 ## Configurations incluses
 

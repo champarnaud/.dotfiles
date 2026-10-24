@@ -21,8 +21,14 @@ if [ "$os" = "Darwin" ]; then
         exit 1
     fi
     # Installation des paquets
-    brew update
-    brew install tmux vim mutt bat lsd
+    if ! brew update; then
+        echo "Erreur: échec de la mise à jour Homebrew." >&2
+        exit 1
+    fi
+    if ! brew install tmux vim mutt bat lsd; then
+        echo "Erreur: échec de l'installation des outils Homebrew." >&2
+        exit 1
+    fi
     echo "Installation terminée sur macOS."
 
 elif [ "$os" = "Linux" ]; then
@@ -33,8 +39,14 @@ elif [ "$os" = "Linux" ]; then
         exit 1
     fi
     # Installation des paquets
-    sudo apt update
-    sudo apt install -y tmux vim mutt bat lsd
+    if ! sudo apt update; then
+        echo "Erreur: échec de la mise à jour des dépôts apt." >&2
+        exit 1
+    fi
+    if ! sudo apt install -y tmux vim mutt bat lsd; then
+        echo "Erreur: échec de l'installation des outils apt." >&2
+        exit 1
+    fi
     echo "Installation terminée sur Linux."
 
 else
