@@ -127,7 +127,6 @@ map <C-s> :w<CR>
 highlight RedundantWhitespace ctermbg=green guibg=green
 match RedundantWhitespace /\s\+$\| \+\ze\t/
 
-
 " ------------------------------------------------------------------------------
 " plug-in avec plug
 " ------------------------------------------------------------------------------
@@ -153,3 +152,6 @@ Plug 'sheerun/vim-polyglot'
 Plug 'preservim/vim-markdown'
 
 call plug#end()
+
+" FZF
+set rtp+=/opt/homebrew/opt/fzf

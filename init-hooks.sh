@@ -6,6 +6,10 @@
 # Date: 2025-11-14
 #-------------------------------------------------------
 
+set -euo pipefail
+
+readonly SCRIPT_NAME="$(basename "$0")"
+
 echo "🔧 Initializing Git hooks for .dotfiles project..."
 echo ""
 
@@ -26,7 +30,6 @@ mkdir -p .git/hooks
 
 echo "📝 Creating pre-commit hook..."
 cat > .git/hooks/pre-commit << 'EOF'
-
 #!/usr/bin/env bash
 
 #-------------------------------------------------------
@@ -34,6 +37,8 @@ cat > .git/hooks/pre-commit << 'EOF'
 # Author: GitHub Copilot
 # Date: 2025-11-14
 #-------------------------------------------------------
+
+set -euo pipefail
 
 echo "🔍 Checking for CRLF line endings in markdown files..."
 
@@ -46,10 +51,10 @@ if [[ -n "$crlf_files" ]]; then
     echo ""
     echo "💡 To fix this, run one of the following commands:"
     echo "   # Convert CRLF to LF for all .md files:"
-    echo "   find . -name \"*.md\" -type f -exec sed -i 's/\\r$//' {} \\;"
+    echo "   find . -name \"*.md\" -type f -exec sed -i '' 's/\\r$//' {} \\;"
     echo ""
     echo "   # Or for a specific file:"
-    echo "   sed -i 's/\\r$//' path/to/file.md"
+    echo "   sed -i '' 's/\\r$//' path/to/file.md"
     echo ""
     echo "   # Check current line endings:"
     echo "   file filename.md"
@@ -77,12 +82,12 @@ cat > .git/hooks/pre-push << 'EOF'
 # Date: 2025-11-14
 #-------------------------------------------------------
 
+set -euo pipefail
+
 echo "🚀 Running pre-push checks..."
 
 # Run the same check as pre-commit
-./.git/hooks/pre-commit
-
-if (( $? != 0 )); then
+if ! ./.git/hooks/pre-commit; then
     echo "❌ Pre-push checks failed - fix the issues before pushing"
     exit 1
 fi

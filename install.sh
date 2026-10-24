@@ -7,10 +7,14 @@
 # Update 2026-10-24
 #------------------------------------------------------
 
+set -euo pipefail
+
+readonly SCRIPT_NAME="$(basename "$0")"
+
 #--- ENVIRONNEMENT
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-repconf="$SCRIPT_DIR/conf"
-repscripts="$SCRIPT_DIR/scripts"
+readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+readonly repconf="$SCRIPT_DIR/conf"
+readonly repscripts="$SCRIPT_DIR/scripts"
 
 # Sourcing du helper fm (avec fallback)
 # shellcheck source=scripts/fm_helper.sh
@@ -34,7 +38,7 @@ check_tool() {
 
 	if ! command -v "$tool" &> /dev/null; then
 		echo "$tool n'est pas installé."
-		read -p "Voulez-vous l'installer automatiquement ? (o/n) " response
+		read -rp "Voulez-vous l'installer automatiquement ? (o/n) " response
 		if [[ $response =~ ^[oO]$ ]]; then
 			if "$repscripts/install_tools.sh"; then
 				echo "$tool installé avec succès."
@@ -75,7 +79,7 @@ creation_de_liens_symboliques() {
 }
 
 nommer_la_machine(){
-	read -p "Donnez un nom à votre machine : " machine
+	read -rp "Donnez un nom à votre machine : " machine
 	echo "$machine" > "$repconf/machine"
 }
 
@@ -127,13 +131,16 @@ install_smart_mode() {
 	fi
 
 	local output
-	output=$(smart_respond \
+	if ! output=$(smart_respond \
 		--instructions "Tu es un assistant d'installation de dotfiles. On te donne une requête utilisateur et la liste des éléments disponibles (fichiers de conf/ et noms de scripts de scripts/). Retourne les actions à exécuter (noms exacts des fichiers de conf ou noms de scripts sans .sh) et une justification courte en français." \
 		--prompt "Requête : ${request}\n\nÉléments disponibles :\n${available}" \
 		--schema "$schema_file" \
-		--timeout 60)
+		--timeout 60); then
+		echo "⚠️  Échec de l'analyse fm."
+		return 1
+	fi
 
-	if [[ $? -ne 0 || -z "$output" ]]; then
+	if [[ -z "$output" ]]; then
 		echo "⚠️  Échec de l'analyse fm."
 		return 1
 	fi

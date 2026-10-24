@@ -6,6 +6,10 @@
 # Date: 2025-11-14
 #-------------------------------------------------------
 
+set -euo pipefail
+
+readonly SCRIPT_NAME="$(basename "$0")"
+
 echo "🔧 Line Endings Fix Utility"
 echo "=========================="
 
@@ -27,19 +31,15 @@ check_line_endings() {
 fix_md_files() {
     echo "🔄 Converting CRLF to LF in markdown files..."
 
-    md_files=$(find . -name "*.md" -type f -exec grep -l $'\r' {} \;)
+    local fixed=0
+    while IFS= read -r -d '' file; do
+        echo "Fixing $file..."
+        sed -i '' 's/\r$//' "$file"
+        fixed=$(( fixed + 1 ))
+    done < <(find . -name "*.md" -type f -print0 | xargs -0 grep -l $'\r' 2>/dev/null || true)
 
-    if [ -n "$md_files" ]; then
-        echo "Files to fix:"
-        echo "$md_files"
-        echo ""
-
-        for file in $md_files; do
-            echo "Fixing $file..."
-            sed -i 's/\r$//' "$file"
-        done
-
-        echo "✅ All markdown files fixed!"
+    if [[ "$fixed" -gt 0 ]]; then
+        echo "✅ $fixed markdown file(s) fixed!"
     else
         echo "✅ No CRLF line endings found in markdown files"
     fi
@@ -49,19 +49,15 @@ fix_md_files() {
 fix_sh_files() {
     echo "🔄 Converting CRLF to LF in shell scripts..."
 
-    sh_files=$(find . -name "*.sh" -type f -exec grep -l $'\r' {} \;)
+    local fixed=0
+    while IFS= read -r -d '' file; do
+        echo "Fixing $file..."
+        sed -i '' 's/\r$//' "$file"
+        fixed=$(( fixed + 1 ))
+    done < <(find . -name "*.sh" -type f -print0 | xargs -0 grep -l $'\r' 2>/dev/null || true)
 
-    if [ -n "$sh_files" ]; then
-        echo "Files to fix:"
-        echo "$sh_files"
-        echo ""
-
-        for file in $sh_files; do
-            echo "Fixing $file..."
-            sed -i 's/\r$//' "$file"
-        done
-
-        echo "✅ All shell scripts fixed!"
+    if [[ "$fixed" -gt 0 ]]; then
+        echo "✅ $fixed shell script(s) fixed!"
     else
         echo "✅ No CRLF line endings found in shell scripts"
     fi
@@ -83,7 +79,7 @@ case "${1:-}" in
         fix_sh_files
         ;;
     *)
-        echo "Usage: $0 {check|fix-md|fix-sh|fix-all}"
+        echo "Usage: $SCRIPT_NAME {check|fix-md|fix-sh|fix-all}"
         echo ""
         echo "Commands:"
         echo "  check    - Check current line endings"
@@ -92,8 +88,8 @@ case "${1:-}" in
         echo "  fix-all  - Fix CRLF in all files"
         echo ""
         echo "Examples:"
-        echo "  $0 check"
-        echo "  $0 fix-md"
-        echo "  $0 fix-all"
+        echo "  $SCRIPT_NAME check"
+        echo "  $SCRIPT_NAME fix-md"
+        echo "  $SCRIPT_NAME fix-all"
         ;;
 esac

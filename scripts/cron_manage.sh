@@ -7,8 +7,17 @@
 # Last update : 2025-11-07
 #-------------------------------------------------------
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-w_bash=$(command -v bash)
+set -euo pipefail
+
+readonly SCRIPT_NAME="$(basename "$0")"
+readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+readonly w_bash="$(command -v bash)"
+
+if [[ -z "$w_bash" ]]; then
+    echo "Erreur: bash introuvable."
+    exit 1
+fi
 
 # Récupérer la crontab actuelle
 current_cron=$(crontab -l 2>/dev/null || echo "")

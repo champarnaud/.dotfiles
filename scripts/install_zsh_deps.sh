@@ -8,6 +8,10 @@
 # Update: 2025-11-19
 #------------------------------------------------------
 
+set -euo pipefail
+
+readonly SCRIPT_NAME="$(basename "$0")"
+
 # Détection de l'OS
 os=$(uname -s)
 
@@ -39,7 +43,7 @@ install_macos() {
     fi
 
     # Installer Oh My Zsh si pas présent
-    if [ ! -d "$HOME/.oh-my-zsh" ]; then
+    if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
         echo "📦 Installation d'Oh My Zsh..."
         sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
     else
@@ -47,7 +51,7 @@ install_macos() {
     fi
 
     # Installer Powerlevel10k
-    if [ ! -d "$HOME/.oh-my-zsh/custom/themes/powerlevel10k" ]; then
+    if [[ ! -d "$HOME/.oh-my-zsh/custom/themes/powerlevel10k" ]]; then
         echo "🎨 Installation du thème Powerlevel10k..."
         run_or_fail "clonage de Powerlevel10k" git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$HOME/.oh-my-zsh/custom/themes/powerlevel10k" || return $?
     else
@@ -58,7 +62,7 @@ install_macos() {
     ZSH_CUSTOM=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}
 
     # zsh-autosuggestions
-    if [ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]; then
+    if [[ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]]; then
         echo "🔧 Installation du plugin zsh-autosuggestions..."
         run_or_fail "clonage de zsh-autosuggestions" git clone https://github.com/zsh-users/zsh-autosuggestions "$ZSH_CUSTOM/plugins/zsh-autosuggestions" || return $?
     else
@@ -66,7 +70,7 @@ install_macos() {
     fi
 
     # zsh-completions
-    if [ ! -d "$ZSH_CUSTOM/plugins/zsh-completions" ]; then
+    if [[ ! -d "$ZSH_CUSTOM/plugins/zsh-completions" ]]; then
         echo "🔧 Installation du plugin zsh-completions..."
         run_or_fail "clonage de zsh-completions" git clone https://github.com/zsh-users/zsh-completions "$ZSH_CUSTOM/plugins/zsh-completions" || return $?
     else
@@ -74,7 +78,7 @@ install_macos() {
     fi
 
     # zsh-syntax-highlighting
-    if [ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ]; then
+    if [[ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ]]; then
         echo "🔧 Installation du plugin zsh-syntax-highlighting..."
         run_or_fail "clonage de zsh-syntax-highlighting" git clone https://github.com/zsh-users/zsh-syntax-highlighting "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" || return $?
     else
@@ -110,7 +114,7 @@ install_linux() {
     fi
 
     # Installer Oh My Zsh si pas présent
-    if [ ! -d "$HOME/.oh-my-zsh" ]; then
+    if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
         echo "📦 Installation d'Oh My Zsh..."
         sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
     else
@@ -118,7 +122,7 @@ install_linux() {
     fi
 
     # Installer Powerlevel10k
-    if [ ! -d "$HOME/.oh-my-zsh/custom/themes/powerlevel10k" ]; then
+    if [[ ! -d "$HOME/.oh-my-zsh/custom/themes/powerlevel10k" ]]; then
         echo "🎨 Installation du thème Powerlevel10k..."
         run_or_fail "clonage de Powerlevel10k" git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$HOME/.oh-my-zsh/custom/themes/powerlevel10k" || return $?
     else
@@ -129,7 +133,7 @@ install_linux() {
     ZSH_CUSTOM=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}
 
     # zsh-autosuggestions
-    if [ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]; then
+    if [[ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]]; then
         echo "🔧 Installation du plugin zsh-autosuggestions..."
         run_or_fail "clonage de zsh-autosuggestions" git clone https://github.com/zsh-users/zsh-autosuggestions "$ZSH_CUSTOM/plugins/zsh-autosuggestions" || return $?
     else
@@ -137,7 +141,7 @@ install_linux() {
     fi
 
     # zsh-completions
-    if [ ! -d "$ZSH_CUSTOM/plugins/zsh-completions" ]; then
+    if [[ ! -d "$ZSH_CUSTOM/plugins/zsh-completions" ]]; then
         echo "🔧 Installation du plugin zsh-completions..."
         run_or_fail "clonage de zsh-completions" git clone https://github.com/zsh-users/zsh-completions "$ZSH_CUSTOM/plugins/zsh-completions" || return $?
     else
@@ -145,7 +149,7 @@ install_linux() {
     fi
 
     # zsh-syntax-highlighting
-    if [ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ]; then
+    if [[ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ]]; then
         echo "🔧 Installation du plugin zsh-syntax-highlighting..."
         run_or_fail "clonage de zsh-syntax-highlighting" git clone https://github.com/zsh-users/zsh-syntax-highlighting "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" || return $?
     else
